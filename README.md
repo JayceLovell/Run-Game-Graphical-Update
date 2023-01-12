@@ -4,7 +4,7 @@
  Kanban Board(Trello): https://trello.com/b/YNe2jzOI/gdc </br> 
  # Roles
  Jayce Lovell: Programmer & Game Designer - Lead programmer who will be taking the core programming role in terms of backend code development and game design. </br></br>
- Jelani Garnes: Programmer, Game Designer and Art Designer - Second programmer who  will also be responsible for code updates,along with game level design and updates, VFX design and game art updates.
+ Jelani Garnes: Programmer, Art Designer and Sound Designer - Second programmer who  will also be responsible for code updates,along with game level design and updates, VFX design, SFX updates and game art updates.
  
  
  
