@@ -1,5 +1,5 @@
 # Run Game Graphical Update
- Elevator Pitch Link:</br>
+ Elevator Pitch Link: https://youtu.be/qER0GKwGnwc </br>
  Pitch Slides Link: https://docs.google.com/presentation/d/14rdcaKjrJyhEeIMO3NwmRdRuwgVImMxVlJH7nQYCQqg/edit#slide=id.g1cf01f46c23_0_70 </br>
  Kanban Board(Trello): https://trello.com/b/YNe2jzOI/gdc </br> 
  # Roles
