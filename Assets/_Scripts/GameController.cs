@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 //refernce to the UI namespace
 using UnityEngine.UI;
+using UnityEngine.Windows;
+using StarterAssets;
 /**
  * StudentID: 300833478
  * Date: 07/11/2016
@@ -13,16 +15,15 @@ public class GameController : MonoBehaviour {
     private float _time;
     private bool _isGameOver;
     private bool _isGamePause;
-    private float _fillAmount;
-    private bool _isLightOn;
-    private float _lightpausevalue;
+    private float _batteryPower;
     private float timeBetweenFires = 1.0f;
     private float timeTilNextFire = 0.0f;
     private GameObject _respawnPoint;
     private GameObject[] _spooks;
-    private bool _flickingstarted;
     private int _amountOfSpooks;
     private GameManager _gameManager;
+
+    private StarterAssetsInputs _input;
 
 
     // PUBLIC INSTANCE VARIABLES
@@ -30,9 +31,7 @@ public class GameController : MonoBehaviour {
     public AudioSource GamePlaySound;
     public AudioSource OutOfBattery;
     public AudioSource SpookLaugh;
-    public AudioSource FlickerLight;
     public Image BatteryBar;
-    public Light Light;
     public Light MiniMapLight;
     public int AmountOfSpooks
     {
@@ -101,18 +100,17 @@ public class GameController : MonoBehaviour {
                 this.TimeLable.text = Mathf.Round(this._time).ToString();
         }
     }
-    public float FillAmount
+    public float BatteryPower
     {
         get
         {
-            return this._fillAmount;
+            return this._batteryPower;
         }
         set
         {
-            this._fillAmount = value;
-            if (_fillAmount <= 0f)
+            this._batteryPower = value;
+            if (_batteryPower <= 0f)
             {
-                Light.intensity = 0;
                 IsGameOver = true;
                 IsGamePause = true;
                 Cursor.lockState = CursorLockMode.None;
@@ -143,25 +141,9 @@ public class GameController : MonoBehaviour {
             _updateBattery();
             timeTilNextFire -= Time.deltaTime;
         }
-        if(Input.GetKeyDown(KeyCode.Escape)&&!IsGameOver)
+        if(_input.pause && !IsGameOver)
         {
             _bringUpMenu();
-            _lightpausevalue = FillAmount;
-        }
-        if (Input.GetButtonDown("Fire2"))
-        {
-            if (this._isLightOn)
-            {
-                Light.intensity = 0;
-                MiniMapLight.intensity = 0;
-                this._isLightOn = false;
-            }
-            else
-            {
-                Light.intensity = 4;
-                MiniMapLight.intensity = 2;
-                this._isLightOn = true;
-            }
         }
         //Saves score to memory
         PlayerPrefs.SetFloat("Score", TimeValue);
@@ -184,8 +166,7 @@ public class GameController : MonoBehaviour {
         GameOverLable.gameObject.SetActive(false);
         this.IsGamePause = false;
         this.IsGameOver = false;
-        this._isLightOn = true;
-        this.FillAmount = 1f;
+        this.BatteryPower = 1f;
         _amountOfSpooks = _gameManager.AmountOfSpooks;
         _spooks = new GameObject[_amountOfSpooks];
        
@@ -211,36 +192,17 @@ public class GameController : MonoBehaviour {
     {
         if (timeTilNextFire < 0)
         {
-            if (_isLightOn && !_isGameOver)
+            if (!_isGameOver)
             {
-                FillAmount -= 0.02f;
+                BatteryPower -= 0.02f;
                 timeTilNextFire = timeBetweenFires;
             }
         }
-        BatteryBar.fillAmount = _fillAmount;
+        BatteryBar.fillAmount = _batteryPower;
         if (BatteryBar.fillAmount < 0.30 && BatteryBar.fillAmount > 0.01)
         {
-            _startFlicker();
+            
         }
-    }
-    private void _startFlicker()
-    {
-        if (!_flickingstarted)
-        {
-            StartCoroutine(Fliker());
-        }
-        _flickingstarted=true;
-    }
-    IEnumerator Fliker()
-    {
-        yield return new WaitForSeconds(0.7f);
-        Light.intensity = 0;
-        MiniMapLight.intensity = 0;
-        FlickerLight.Play();
-        yield return new WaitForSeconds(0.7f);
-        MiniMapLight.intensity = 2;
-        Light.intensity = 4;
-        _flickingstarted = false;
     }
 
   
@@ -260,6 +222,6 @@ public class GameController : MonoBehaviour {
         MenuTitle.gameObject.SetActive(false);
         BackToMainMenu.gameObject.SetActive(false);
         Resume.gameObject.SetActive(false);
-        BatteryBar.fillAmount = _lightpausevalue;
+        //BatteryBar.fillAmount = _lightpausevalue;
     }
 }

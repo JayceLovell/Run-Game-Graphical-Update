@@ -8,6 +8,9 @@ TagManager:
   - Car
   - Map
   - WayPoint
+  - CinemachineTarget
+  - Battery
+  - MiniCam
   layers:
   - Default
   - TransparentFX
