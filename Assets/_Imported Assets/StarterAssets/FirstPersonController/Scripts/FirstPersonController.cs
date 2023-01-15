@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
+
 #endif
 
 namespace StarterAssets
@@ -11,6 +13,21 @@ namespace StarterAssets
 #endif
 	public class FirstPersonController : MonoBehaviour
 	{
+		// My Edits
+		[Header("Sound")]
+        [SerializeField] private AudioClip[] _FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
+        [SerializeField] private AudioClip _JumpSound;           // the sound played when character leaves the ground.
+        [SerializeField] private AudioClip _LandSound;           // the sound played when character touches back on ground.
+
+        private float _StepCycle;
+        private float _NextStep;
+        private bool _Jumping;
+
+        private AudioSource _AudioSource;
+        [SerializeField] private float _StepInterval;
+        [SerializeField] [Range(0f, 1f)] private float _RunstepLenghten;
+        // End
+
         [Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
 		public float MoveSpeed = 4.0f;
@@ -108,9 +125,61 @@ namespace StarterAssets
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
-		}
 
-		private void Update()
+            // My Edits
+            _AudioSource = GetComponent<AudioSource>();
+            _StepCycle = 0f;
+            _NextStep = _StepCycle / 2f;
+            // End
+        }
+
+        // My Edits
+        private void ProgressStepCycle(float speed)
+		{
+			if (_controller.velocity.sqrMagnitude > 0 && (_input.move.x != 0 || _input.move.y != 0))
+			{
+                _StepCycle += (_controller.velocity.magnitude + (speed * (_input.move != Vector2.zero ? 1f : _RunstepLenghten))) *
+                             Time.fixedDeltaTime;
+            }
+
+            if (!(_StepCycle > _NextStep))
+            {
+                return;
+            }
+
+            _NextStep = _StepCycle + _StepInterval;
+
+            PlayFootStepAudio();
+        }
+        private void PlayFootStepAudio()
+        {
+            if (!_controller.isGrounded)
+            {
+                return;
+            }
+            // pick & play a random footstep sound from the array,
+            // excluding sound at index 0
+            int n = Random.Range(1, _FootstepSounds.Length);
+            _AudioSource.clip = _FootstepSounds[n];
+            _AudioSource.PlayOneShot(_AudioSource.clip);
+            // move picked sound to index 0 so it's not picked next time
+            _FootstepSounds[n] = _FootstepSounds[0];
+            _FootstepSounds[0] = _AudioSource.clip;
+        }
+        private void PlayLandingSound()
+        {
+            _AudioSource.clip = _LandSound;
+            _AudioSource.Play();
+            _NextStep = _StepCycle + .5f;
+        }
+
+        private void PlayJumpSound()
+        {
+            _AudioSource.clip = _JumpSound;
+            _AudioSource.Play();
+        }
+        // End
+        private void Update()
 		{
 			JumpAndGravity();
 			GroundedCheck();
@@ -192,16 +261,24 @@ namespace StarterAssets
 			{
 				// move
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
-			}
 
-			// move the player
-			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-		}
+				//My Edit
+				ProgressStepCycle(_speed);
+                //End
+            }
+
+            // move the player
+            _controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);			
+
+        }
 
 		private void JumpAndGravity()
 		{
-			if (Grounded)
+			
+
+            if (Grounded)
 			{
+
 				// reset the fall timeout timer
 				_fallTimeoutDelta = FallTimeout;
 
@@ -216,14 +293,23 @@ namespace StarterAssets
 				{
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
 					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
-				}
+                    // My Edit
 
-				// jump timeout
-				if (_jumpTimeoutDelta >= 0.0f)
+                    PlayJumpSound();
+
+                    //End
+                }
+
+                // jump timeout
+                if (_jumpTimeoutDelta >= 0.0f)
 				{
 					_jumpTimeoutDelta -= Time.deltaTime;
-				}
-			}
+
+                    // My Edit
+                    PlayLandingSound();
+                    //End
+                }
+            }
 			else
 			{
 				// reset the jump timeout timer
