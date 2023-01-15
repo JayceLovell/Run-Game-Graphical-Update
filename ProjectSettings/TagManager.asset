@@ -8,6 +8,8 @@ TagManager:
   - Car
   - Map
   - WayPoint
+  - CinemachineTarget
+  - Battery
   layers:
   - Default
   - TransparentFX
