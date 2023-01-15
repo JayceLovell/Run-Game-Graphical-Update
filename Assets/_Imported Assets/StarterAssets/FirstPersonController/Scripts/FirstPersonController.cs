@@ -153,7 +153,7 @@ namespace StarterAssets
         }
         private void PlayFootStepAudio()
         {
-            if (!_controller.isGrounded)
+            if (!Grounded)
             {
                 return;
             }
@@ -293,7 +293,8 @@ namespace StarterAssets
 				{
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
 					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
-                    // My Edit
+                    
+					// My Edit
 
                     PlayJumpSound();
 

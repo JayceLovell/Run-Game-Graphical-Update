@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class FlashLight : MonoBehaviour
 {
-    public bool IsFlashLightOn;
+    public bool IsLightsOn;
     public Light SpotLight;
+    public Light AboveLight;
     public AudioSource FlickerLight;
+    public RawImage MiniMap;
 
     private StarterAssetsInputs _input;
     private float _lightpausevalue;
@@ -18,7 +21,7 @@ public class FlashLight : MonoBehaviour
 
     void Initialize()
     {
-        IsFlashLightOn = true;
+        IsLightsOn = true;
     }
 
     // Start is called before the first frame update
@@ -38,7 +41,7 @@ public class FlashLight : MonoBehaviour
         }
         if (_input.toggleFlashLight)
         {
-            _toggleFlashLight(IsFlashLightOn);
+            _toggleFlashLight(IsLightsOn);
         }
         //if (_gameController.IsGamePause)
         //{
@@ -52,13 +55,17 @@ public class FlashLight : MonoBehaviour
         if (toggle)
         {
             SpotLight.intensity = 0;
-            IsFlashLightOn = false;
+            AboveLight.intensity = 0;
+            MiniMap.color = new Color(1, 1, 1, 0);
+            IsLightsOn = false;
            _input.toggleFlashLight = false;
         }
         else
         {
             SpotLight.intensity = 4;
-            IsFlashLightOn = true;
+            AboveLight.intensity = 1;
+            MiniMap.color = new Color(1, 1, 1, 1);
+            IsLightsOn = true;
             _input.toggleFlashLight = false;
         }
     }

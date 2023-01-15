@@ -10,6 +10,7 @@ TagManager:
   - WayPoint
   - CinemachineTarget
   - Battery
+  - MiniCam
   layers:
   - Default
   - TransparentFX
