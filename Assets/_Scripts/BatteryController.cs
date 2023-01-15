@@ -29,6 +29,6 @@ public class BatteryController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
-        _gameController.FillAmount = 1f;
+        _gameController.BatteryPower = 1f;
     }
 }
