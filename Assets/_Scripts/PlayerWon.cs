@@ -1,22 +1,24 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
-using UnityEngine.SceneManagement;
 using System;
+using TMPro;
 
-public class Player_Won_Controller : MonoBehaviour {
+public class PlayerWon : MonoBehaviour {
 
-    //Public
+    [SerializeField]
+    private TextMeshProUGUI _Instructions;
+
+    private GameController _gameController;
+
     public Transform PlayerDirection;
-    public Text GameWon;
 
-	// Use this for initialization
-	void Start () {
-        GameWon.gameObject.SetActive(false);
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    void Start()
+    {
+        _gameController=GameObject.Find("GameController").GetComponent<GameController>();
+    }
+    // Update is called once per frame
+    void FixedUpdate () {
         // need a variable to hold the location of our Raycast look
         RaycastHit hit;
 
@@ -25,11 +27,11 @@ public class Player_Won_Controller : MonoBehaviour {
         {
             if (hit.transform.gameObject.CompareTag("Car"))
             {
-                GameWon.gameObject.SetActive(true);
+                _Instructions.gameObject.SetActive(true);
             }
             else
             {
-                GameWon.gameObject.SetActive(false);
+                _Instructions.gameObject.SetActive(false);
             }
         }
         if (Input.GetButtonDown("Fire1"))
@@ -40,7 +42,7 @@ public class Player_Won_Controller : MonoBehaviour {
             {
                 if (hit.transform.gameObject.CompareTag("Car"))
                 {
-                    SceneManager.LoadScene("GameWon");
+                    _gameController.GameManager.IsGameWon = true;
                 }
             }
         }

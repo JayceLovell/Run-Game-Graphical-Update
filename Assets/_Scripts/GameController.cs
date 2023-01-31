@@ -1,227 +1,134 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System.Linq;
 
-//refernce to the UI namespace
-using UnityEngine.UI;
-using UnityEngine.Windows;
-using StarterAssets;
-/**
- * StudentID: 300833478
- * Date: 07/11/2016
- */
 public class GameController : MonoBehaviour {
-    // Private Instance Variables
-    private float _time;
-    private bool _isGameOver;
-    private bool _isGamePause;
-    private float _batteryPower;
-    private float timeBetweenFires = 1.0f;
-    private float timeTilNextFire = 0.0f;
-    private GameObject _respawnPoint;
-    private GameObject[] _spooks;
-    private int _amountOfSpooks;
     private GameManager _gameManager;
+    [SerializeField]
+    private float _gameTime;
+    private float _batteryCharge;
+    private GameObject _respawnPoint;
+    private float _batteryDischargeRate;
+    private List<Transform> _BatteryPositions;
+    
 
-    private StarterAssetsInputs _input;
-
-
-    // PUBLIC INSTANCE VARIABLES
+    public List<GameObject> Spooks;
+    public List<GameObject> Batteries;
     public GameObject Spook;
-    public AudioSource GamePlaySound;
-    public AudioSource OutOfBattery;
-    public AudioSource SpookLaugh;
-    public Image BatteryBar;
-    public Light MiniMapLight;
-    public int AmountOfSpooks
-    {
-        get
-        {
-            return this._amountOfSpooks;
-        }
-        set
-        {
-            this._amountOfSpooks = value;
-        }
-    }
-    public bool IsGameOver
-    {
-        get
-        {
-            return this._isGameOver;
-        }
-        set
-        {
-            this._isGameOver = value;
-            if(_isGameOver)
-            {
-                IsGamePause = true;
-                GameOverLable.gameObject.SetActive(true);
-                GamePlaySound.Stop();
-                OutOfBattery.Play();
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                PlayerPrefs.Save();
-                Invoke("BackToMainScreen", 5);
-            }
-        }
-    }
-    public bool IsGamePause
-    {
-        get
-        {
-            return this._isGamePause;
-        }
-        set
-        {
-            this._isGamePause = value;
-            if(_isGamePause)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                Cursor.visible = false;
-            }
-        }
-    }
+    public GameObject Battery;
 
+    public GameManager GameManager
+    {
+        get { return _gameManager; }
+        set { _gameManager = value; }
+    }
   
-    public float TimeValue
+    public float GameTime
     {
         get
         {
-            return this._time;
+            return this._gameTime;
         }
         set
         {
-            this._time = value;
-                this.TimeLable.text = Mathf.Round(this._time).ToString();
+            this._gameTime = value;
         }
     }
-    public float BatteryPower
+    public float BatteryCharge
     {
         get
         {
-            return this._batteryPower;
+            return this._batteryCharge;
         }
         set
         {
-            this._batteryPower = value;
-            if (_batteryPower <= 0f)
+            this._batteryCharge = value;
+            if (_batteryCharge <= 0f)
             {
-                IsGameOver = true;
-                IsGamePause = true;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                GameManager.IsGameLost  = true;                
             }
         }
     }
 
-    [Header("Menu")]
-    public Text TimeLable;
-    public Text MenuTitle;
-    public Button BackToMainMenu;
-    public Button Resume;
-    [Header("GameOver")]
-    public Text GameOverLable;
-
-	// Use this for initialization
-	void Start () {
-        Initialize();
+    private void Awake()
+    {
+        _gameManager = GameManager.Instance;
+    }
+    // Use this for initialization
+    void Start () {
         _spawnSpooks();
-	}
+        _gameTime = 0;
+        _batteryCharge = 100f;
+        _gameDifficulty(GameManager.Difficulty);
+        //lock cursor to screen
+        Cursor.lockState = CursorLockMode.Locked;
+        _spawnBatteries();
+
+    }
     
 	// Update is called once per frame
 	void Update () {
-        if (!IsGamePause)
+        if (!GameManager.IsGamePaused)
         {
-            this.TimeValue += Time.deltaTime;
-            _updateBattery();
-            timeTilNextFire -= Time.deltaTime;
-        }
-        if(_input.pause && !IsGameOver)
-        {
-            _bringUpMenu();
-        }
-        //Saves score to memory
-        PlayerPrefs.SetFloat("Score", TimeValue);
-        if (_amountOfSpooks == 0)
-        {
-            _amountOfSpooks = 5;
-            _spooks = new GameObject[_amountOfSpooks];
-            _spawnSpooks();
+            _gameTime += Time.deltaTime;
+            BatteryCharge -= _batteryDischargeRate;
+            _gameManager.Score = _calculateScore(GameTime, Spooks.Count, Batteries.Count);
         }
     }
-    // Use this for initialization
-    void Initialize()
-    {
-        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        _respawnPoint = GameObject.Find("SpookSpawn");
-        this.TimeValue = 0.0f;
-        MenuTitle.gameObject.SetActive(false);
-        BackToMainMenu.gameObject.SetActive(false);
-        Resume.gameObject.SetActive(false);
-        GameOverLable.gameObject.SetActive(false);
-        this.IsGamePause = false;
-        this.IsGameOver = false;
-        this.BatteryPower = 1f;
-        _amountOfSpooks = _gameManager.AmountOfSpooks;
-        _spooks = new GameObject[_amountOfSpooks];
-       
-    }
+
     // Private METHODS*******************************
     private void _spawnSpooks()
     {
-        for(int i = 0; i < _spooks.Length;i++)
+        //for(int i = 0; i < _spooks.Length;i++)
+        //{
+        //    _spooks[i] = Instantiate(Spook, _respawnPoint.transform.position,_respawnPoint.transform.rotation);
+        //}
+    }
+    private void _spawnBatteries()
+    {
+        GameObject[] batteryPositions = GameObject.FindGameObjectsWithTag("BatteryPosition");
+        _BatteryPositions = batteryPositions.Select(batteryPosition => batteryPosition.transform).ToList();
+
+        foreach (Transform position in _BatteryPositions)
         {
-            _spooks[i] = Instantiate(Spook, _respawnPoint.transform.position,_respawnPoint.transform.rotation);
+            Batteries.Add(Instantiate(Battery, position));
         }
     }
-    private void _bringUpMenu()
+    private void _gameDifficulty(string Difficulty)
     {
-        IsGamePause = true;
-        MenuTitle.gameObject.SetActive(true);
-        BackToMainMenu.gameObject.SetActive(true);
-        Resume.gameObject.SetActive(true);
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        switch(Difficulty)
+        {
+            case "Easy":
+                _batteryDischargeRate = 0.04f;
+                break;
+            case "Normal":
+                _batteryDischargeRate = 0.06f;
+                break;
+            case "Hard":
+                _batteryDischargeRate = 0.10f;
+                break;
+            default:
+                _batteryDischargeRate = 0.02f;
+                break;
+        }
     }
-    private void _updateBattery()
+    /// <summary>
+    /// Calcualtes Score based on factors
+    /// </summary>
+    /// <param name="_timeToEnd">Time it took for player to end</param>
+    /// <param name="SpooksLeft">Spooks Left In Game</param>
+    /// <param name="BatteriesLeft">How many batties they used</param>
+    /// <returns></returns>
+    private float _calculateScore(float _timeToEnd,int SpooksLeft, int BatteriesLeft)
     {
-        if (timeTilNextFire < 0)
-        {
-            if (!_isGameOver)
-            {
-                BatteryPower -= 0.02f;
-                timeTilNextFire = timeBetweenFires;
-            }
-        }
-        BatteryBar.fillAmount = _batteryPower;
-        if (BatteryBar.fillAmount < 0.30 && BatteryBar.fillAmount > 0.01)
-        {
-            
-        }
+        float timeFactor = 1 / _timeToEnd;
+        float enemiesFactor = SpooksLeft * 10;
+        float powerUpsFactor = BatteriesLeft * 5;
+
+        return timeFactor + enemiesFactor + powerUpsFactor;
+
     }
 
-  
-
-    // Public METHODS*******************************
-    
-    
-    public void BackToMainScreen()
-    {
-        SceneManager.LoadScene("MainMenu");
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-    public void BringDownMenu()
-    {
-        IsGamePause = false;
-        MenuTitle.gameObject.SetActive(false);
-        BackToMainMenu.gameObject.SetActive(false);
-        Resume.gameObject.SetActive(false);
-        //BatteryBar.fillAmount = _lightpausevalue;
-    }
 }

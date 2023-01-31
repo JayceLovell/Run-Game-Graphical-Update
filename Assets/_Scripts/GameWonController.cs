@@ -1,20 +1,33 @@
-﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameWonController : MonoBehaviour {
-    //PUBLIC
-    public Text GameWonScore;
+public class GameWonController : MonoBehaviour
+{
+    private GameManager _gameManager;
+    [SerializeField]
+    private TextMeshProUGUI _UserScore;
 
-	// Use this for initialization
-	void Start () {
-        GameWonScore.text = "Score: " + PlayerPrefs.GetFloat("Score");
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+    // Start is called before the first frame update
+    void Start()
+    {
+        _gameManager = GameManager.Instance;
+        _UserScore.text = _gameManager.UserName + ": " + _gameManager.Score;
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    public void PlayAgain()
+    {
+        SceneManager.LoadScene("Title");
+    }
+    public void Exit()
+    {
+        _gameManager.Quit();
+    }
 }
