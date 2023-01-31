@@ -178,6 +178,14 @@ namespace StarterAssets
             _AudioSource.clip = _JumpSound;
             _AudioSource.Play();
         }
+        private void OnTriggerEnter(Collider other)
+        {
+			if (other.gameObject.tag == "Spook")
+			{
+				gameObject.transform.position = GameObject.FindGameObjectWithTag("Respawn").transform.position;
+                gameObject.transform.rotation = GameObject.FindGameObjectWithTag("Respawn").transform.rotation;
+            }
+        }
         // End
         private void Update()
 		{

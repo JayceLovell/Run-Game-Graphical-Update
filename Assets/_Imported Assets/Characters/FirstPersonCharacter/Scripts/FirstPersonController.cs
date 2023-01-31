@@ -68,7 +68,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         private void Update()
         {
-            if (!MainGameController.IsGamePause)
+           // if (!MainGameController.IsGamePause)
             {
                 RotateView();
                 // the jump state needs to read here to make sure it is not missed
@@ -105,7 +105,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
-            if (!MainGameController.IsGamePause)
+            //if (!MainGameController.IsGamePause)
             {
                 float speed;
                 GetInput(out speed);

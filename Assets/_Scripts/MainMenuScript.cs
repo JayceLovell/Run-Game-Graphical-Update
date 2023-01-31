@@ -1,34 +1,40 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.SceneManagement;
-//refernce to the UI namespace
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
-/**
- * StudentID: 300833478
- * Date: 07/11/2016
- */
+using UnityEngine.SceneManagement;
+using TMPro;
+
 public class MainMenuScript : MonoBehaviour {
-    private GameObject _gameManagerObject;
     private GameManager _gameManager;
+
     // PUBLIC INSTANCE VARIABLES
-    public AudioSource MainMenuSound;
-    public Dropdown DifficultySelector;
 
     [Header("Text")]
-    public Text VersionLabel;
+    public TextMeshProUGUI VersionLabel;
 
     [Header("Buttons")]
+    [SerializeField]
     public Button StartButton;
     public Button ExitButton;
-    // Use this for initialization
+
+    [Header("ScoreBoard")]
+    public ScrollRect Scoreboard;
+    public GameObject ScorePrefab;
+    
     void Start () {
-        VersionLabel.text = "Version: " + Application.version;
-        Cursor.visible = true;
-        this._gameManagerObject = GameObject.Find("GameManager");
-        _gameManager = _gameManagerObject.GetComponent<GameManager>();
-        DifficultySelector.onValueChanged.AddListener(delegate { SelectedDifficulty(DifficultySelector); });
-        //setting default
-        _gameManager.AmountOfSpooks = 5;
+        VersionLabel.text = "Version: " + Application.version;       
+        _gameManager = GameManager.Instance;
+
+       // int i = 0;
+        foreach(var score in _gameManager.ScoreManager.GetTop10Scores())
+        {
+            GameObject scoreGO = Instantiate(ScorePrefab, Scoreboard.content);
+            TextMeshProUGUI[] textComponents = scoreGO.GetComponentsInChildren<TextMeshProUGUI>();
+            textComponents[0].text = score.PlayerName;
+            textComponents[1].text = score.Score.ToString();
+            //scoreGO.transform.localPosition = new Vector3(0, -i * scoreGO.GetComponent<RectTransform>().sizeDelta.y, 0);
+            //i++;
+        }
     }
 	
 	// Update is called once per frame
@@ -38,27 +44,28 @@ public class MainMenuScript : MonoBehaviour {
     // PUBLIC METHODS
     public void Start_Game()
     {
-        MainMenuSound.Stop();
         SceneManager.LoadScene("Main");
     }
     public void Close_Game()
     {
-        Application.Quit();
+        _gameManager.Quit();
     }
-    void SelectedDifficulty(Dropdown target)
+    public void EnterUserName(TMP_InputField value)
     {
+        _gameManager.UserName = value.text;
+    }
+    public void SelectedDifficulty(TMP_Dropdown target)
+    {       
         switch (target.value)
         {
             case 0:
+                _gameManager.Difficulty = "Easy";
                 break;
             case 1:
-                _gameManager.AmountOfSpooks = 5;
+                _gameManager.Difficulty = "Normal";
                 break;
             case 2:
-                _gameManager.AmountOfSpooks = 7;
-                break;
-            case 3:
-                _gameManager.AmountOfSpooks = 10;
+                _gameManager.Difficulty = "Hard";
                 break;
         }
     }

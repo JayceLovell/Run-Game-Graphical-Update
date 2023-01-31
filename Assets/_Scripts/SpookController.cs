@@ -127,11 +127,9 @@ public class SpookController : MonoBehaviour {
         }
     }
     private void OnTriggerEnter(Collider other)
-    {
-        _player.transform.position = _spawnPoint.transform.position;
-        _player.transform.rotation = _spawnPoint.transform.rotation;
-        _gameController.SpookLaugh.Play();
-        _gameController.AmountOfSpooks--;
+    {        
+        //_gameController.SpookLaugh.Play();
+        //_gameController.AmountOfSpooks--;
         Destroy(gameObject);
     }
     //Public Methods

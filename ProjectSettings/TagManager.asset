@@ -4,13 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Scare
   - Car
   - Map
   - WayPoint
   - CinemachineTarget
   - Battery
   - MiniCam
+  - BatteryPosition
   layers:
   - Default
   - TransparentFX

@@ -21,7 +21,7 @@ PlayerSettings:
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
   m_SplashScreenAnimation: 1
-  m_SplashScreenLogoStyle: 1
+  m_SplashScreenLogoStyle: 0
   m_SplashScreenDrawMode: 0
   m_SplashScreenBackgroundAnimationZoom: 1
   m_SplashScreenLogoAnimationZoom: 1
@@ -39,7 +39,13 @@ PlayerSettings:
     y: 0
     width: 1
     height: 1
-  m_SplashScreenLogos: []
+  m_SplashScreenLogos:
+  - logo: {fileID: 21300000, guid: 3d60827ef7d87994a9324b9bf39404e8, type: 3}
+    duration: 2
+  - logo: {fileID: 21300000, guid: 364514024ef3f904899c7d1b13b9749d, type: 3}
+    duration: 2
+  - logo: {fileID: 21300000, guid: 403b5d599abd014439d20bddef65c5db, type: 3}
+    duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1024
@@ -156,7 +162,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.Company.ProductName
-    Standalone: unity.Waynell Lovell.Run!!
+    Standalone: com.I-m-Alive.Run--
     iPhone: com.Company.ProductName
     tvOS: com.Company.ProductName
   buildNumber:
