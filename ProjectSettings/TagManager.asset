@@ -11,6 +11,7 @@ TagManager:
   - CinemachineTarget
   - Battery
   - MiniCam
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - PlayerSpotLight
   - Maze
   - Location
-  - 
+  - Ground
   - 
   - 
   - 
