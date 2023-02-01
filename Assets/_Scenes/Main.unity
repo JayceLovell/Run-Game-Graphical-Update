@@ -4129,6 +4129,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3972946760793118407, guid: 6ed49e88724c37b45ba29488bcc548c9,
+        type: 3}
+      propertyPath: GroundedRadius
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3972946760793118407, guid: 6ed49e88724c37b45ba29488bcc548c9,
+        type: 3}
+      propertyPath: GroundLayers.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
     - target: {fileID: 4259710068548359694, guid: 6ed49e88724c37b45ba29488bcc548c9,
         type: 3}
       propertyPath: m_RootOrder
@@ -4379,6 +4389,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameTime: 0
+  Spooks: []
+  Batteries: []
   Spook: {fileID: 1000010738079766, guid: 5279cc3c42d6c254fb63507c929d878c, type: 3}
   Battery: {fileID: 168528, guid: 9e449e64357fb4e4b8f6a73b40377ca8, type: 3}
 --- !u!4 &1062146852
