@@ -1,22 +1,20 @@
-Shader "Custom/Distortion"
+Shader "Custom/Emissive"
 {
     Properties
-    {
-        _MainTex ("Main Texture", 2D) = "white" {}
-        _DistortionMap ("Distortion Map", 2D) = "white" {}
-        _DistortionStrength ("Distortion Strength", Float) = 1.0
+    {       
+        _MainTex ("Texture", 2D) = "white" {}
+        _Emission ("Emission", Range(0, 1)) = 1.0
     }
     SubShader
     {
         Tags { "RenderType"="Opaque" }
-        LOD 100
+        LOD 200
 
-        Pass
-        {
+        Pass {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma target 4.0
+            #pragma shader_feature __ _EMISSION
 
             #include "UnityCG.cginc"
 
@@ -31,24 +29,19 @@ Shader "Custom/Distortion"
             };
 
             sampler2D _MainTex;
-            sampler2D _DistortionMap;
-            float _DistortionStrength;
+            float4 _MainTex_ST;
+            float _Emission;
 
             v2f vert (appdata v) {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
-
-                float4 dist = tex2D(_DistortionMap, v.uv);
-                float2 perturb = float2(dist.r, dist.g) * _DistortionStrength;
-
-                o.vertex.xy += perturb;
-
+                o.uv = v.uv * _MainTex_ST.xy + _MainTex_ST.zw;
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target {
                 fixed4 col = tex2D(_MainTex, i.uv);
+                col.rgb += _Emission;
                 return col;
             }
             ENDCG
