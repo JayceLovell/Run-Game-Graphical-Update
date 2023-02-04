@@ -1,7 +1,8 @@
 Shader "Custom/Emissive"
 {
     Properties
-    {       
+    {   
+        _Color ("Color", Color) = (1,0,0,1)
         _MainTex ("Texture", 2D) = "white" {}
         _Emission ("Emission", Range(0, 1)) = 1.0
     }
@@ -30,6 +31,7 @@ Shader "Custom/Emissive"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float4 _Color;
             float _Emission;
 
             v2f vert (appdata v) {
@@ -40,7 +42,7 @@ Shader "Custom/Emissive"
             }
 
             fixed4 frag (v2f i) : SV_Target {
-                fixed4 col = tex2D(_MainTex, i.uv);
+                fixed4 col = _Color * tex2D(_MainTex, i.uv);
                 col.rgb += _Emission;
                 return col;
             }
