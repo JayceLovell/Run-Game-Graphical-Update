@@ -121,13 +121,16 @@ public class GameController : MonoBehaviour {
     /// <param name="SpooksLeft">Spooks Left In Game</param>
     /// <param name="BatteriesLeft">How many batties they used</param>
     /// <returns></returns>
-    private float _calculateScore(float _timeToEnd,int SpooksLeft, int BatteriesLeft)
+    private float _calculateScore(float _time,int SpooksLeft, int BatteriesLeft)
     {
-        float timeFactor = 1 / _timeToEnd;
-        float enemiesFactor = SpooksLeft * 10;
-        float powerUpsFactor = BatteriesLeft * 5;
+        float score = 0;
+        float timeFactor = 100 / _time;
+        float enemiesFactor = 100 / (SpooksLeft + 1);
+        float batteriesFactor = 100 / (BatteriesLeft + 1);
 
-        return timeFactor + enemiesFactor + powerUpsFactor;
+        score = timeFactor + enemiesFactor + batteriesFactor;
+
+        return score;
 
     }
 
