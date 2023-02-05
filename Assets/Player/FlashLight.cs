@@ -7,48 +7,39 @@ using UnityEngine.UI;
 
 public class FlashLight : MonoBehaviour
 {
+    [SerializeField]
+    private GameController _gameController;
+    [SerializeField]
+    private StarterAssetsInputs _input;
+    private bool _flickingstarted;
+
     public bool IsLightsOn;
     public Light SpotLight;
     public Light AboveLight;
     public AudioSource FlickerLight;
-    public RawImage MiniMap;
+    public RawImage MiniMap;    
 
-    private StarterAssetsInputs _input;
-    private float _lightpausevalue;
-    private bool _flickingstarted;
-
-    private GameController _gameController;
-
-    void Initialize()
-    {
-        IsLightsOn = true;
-    }
 
     // Start is called before the first frame update
     void Start()
     {
-        Initialize();
-        //_gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        IsLightsOn = true;
+        _gameController=GameObject.Find("GameController").GetComponent<GameController>();
         _input = GameObject.FindGameObjectWithTag("Player").GetComponent<StarterAssetsInputs>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (!_gameController.IsGamePause)
+        if (!_gameController.GameManager.IsGamePaused)
         {
-
+             if (_input.toggleFlashLight)
+            {
+                _toggleFlashLight(IsLightsOn);
+            }
+            if (_gameController.BatteryCharge < 0.30 && _gameController.BatteryCharge > 0.01)
+                _startFlicker();
         }
-        if (_input.toggleFlashLight)
-        {
-            _toggleFlashLight(IsLightsOn);
-        }
-        //if (_gameController.IsGamePause)
-        //{
-        //    _lightpausevalue = _gameController.BatteryPower;
-        //}
-        //if (_gameController.BatteryPower < 0.30 && _gameController.BatteryPower > 0.01)
-        //    _startFlicker();
     }
     private void _toggleFlashLight(bool toggle)
     {
@@ -77,12 +68,16 @@ public class FlashLight : MonoBehaviour
         }
         _flickingstarted = true;
     }
+    /// <summary>
+    /// TODO add sound for flickering
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Fliker()
     {
         yield return new WaitForSeconds(0.7f);
 
         SpotLight.intensity = 0;
-        FlickerLight.Play();
+        FlickerLight.Play();        
 
         yield return new WaitForSeconds(0.7f);
 
