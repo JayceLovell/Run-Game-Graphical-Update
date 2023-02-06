@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour {
     private float _gameTime;
     private float _batteryCharge;
     private GameObject _respawnPoint;
+    [SerializeField]
     private float _batteryDischargeRate;
     private List<Transform> _BatteryPositions;
     
@@ -51,6 +52,13 @@ public class GameController : MonoBehaviour {
             }
         }
     }
+    public float BatteryDischargeRate
+    {
+        get
+        {
+            return this._batteryDischargeRate;
+        }
+    }
 
     private void Awake()
     {
@@ -72,8 +80,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
         if (!GameManager.IsGamePaused)
         {
-            _gameTime += Time.deltaTime;
-            BatteryCharge -= _batteryDischargeRate;
+            _gameTime += Time.deltaTime;            
             _gameManager.Score = _calculateScore(GameTime, Spooks.Count, Batteries.Count);
         }
     }
@@ -117,17 +124,20 @@ public class GameController : MonoBehaviour {
     /// <summary>
     /// Calcualtes Score based on factors
     /// </summary>
-    /// <param name="_timeToEnd">Time it took for player to end</param>
+    /// <param name="_time">Time it took for player to end</param>
     /// <param name="SpooksLeft">Spooks Left In Game</param>
     /// <param name="BatteriesLeft">How many batties they used</param>
     /// <returns></returns>
-    private float _calculateScore(float _timeToEnd,int SpooksLeft, int BatteriesLeft)
+    private float _calculateScore(float _time,int SpooksLeft, int BatteriesLeft)
     {
-        float timeFactor = 1 / _timeToEnd;
-        float enemiesFactor = SpooksLeft * 10;
-        float powerUpsFactor = BatteriesLeft * 5;
+        float score = 0;
+        float timeFactor = 100 / _time;
+        float enemiesFactor = 100 / (SpooksLeft + 1);
+        float batteriesFactor = 100 / (BatteriesLeft + 1);
 
-        return timeFactor + enemiesFactor + powerUpsFactor;
+        score = timeFactor + enemiesFactor + batteriesFactor;
+
+        return score;
 
     }
 

@@ -1,12 +1,14 @@
 Shader "Custom/Shinny"
 {
     Properties{        
-        _MainTex("Main Texture", 2D) = "white" {}
+        _MainTex("Texture", 2D) = "white" {}
         _SpecColor("Color", Color) = (1.0,0.843137,1.0)
         _Shininess("Shininess", Float) = 10
     }
 
     SubShader{
+        Tags {"Queue"="Transparent" "RenderType"="Transparent"}
+        LOD 200
         Pass
         {
             Tags {"LightMode" = "ForwardBase"}
@@ -56,8 +58,8 @@ Shader "Custom/Shinny"
                 float atten =1.0;
                 float4 color = tex2D(_MainTex, i.uv);
 
-                // lighting
-                float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
+               // lighting
+                float3 lightDirection = normalize(i.posWorld.xyz - _WorldSpaceCameraPos.xyz);
                 float3 diffuseReflection = atten * _LightColor0.xyz * max(0.0,dot(normalDirection,lightDirection));
 
                 // specular direction

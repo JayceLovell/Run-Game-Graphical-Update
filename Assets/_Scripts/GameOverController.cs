@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class GameOverController : MonoBehaviour
 {
+    void Start()
+    {
+        Cursor.visible = true;
+    }
     public void PlayAgain()
     {
         SceneManager.LoadScene("Title");

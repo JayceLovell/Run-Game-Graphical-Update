@@ -15,6 +15,8 @@ public class GameWonController : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _UserScore.text = _gameManager.UserName + ": " + _gameManager.Score;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     // Update is called once per frame
