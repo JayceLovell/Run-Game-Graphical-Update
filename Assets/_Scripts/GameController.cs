@@ -61,7 +61,7 @@ public class GameController : MonoBehaviour {
         _spawnSpooks();
         _gameTime = 0;
         _batteryCharge = 100f;
-        _gameDifficulty(GameManager.Difficulty);
+        _gameDifficulty(_gameManager.Difficulty);
         //lock cursor to screen
         Cursor.lockState = CursorLockMode.Locked;
         _spawnBatteries();
@@ -72,8 +72,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
         if (!GameManager.IsGamePaused)
         {
-            _gameTime += Time.deltaTime;
-            BatteryCharge -= _batteryDischargeRate;
+            _gameTime += Time.deltaTime;            
             _gameManager.Score = _calculateScore(GameTime, Spooks.Count, Batteries.Count);
         }
     }
@@ -96,17 +95,17 @@ public class GameController : MonoBehaviour {
             Batteries.Add(Instantiate(Battery, position));
         }
     }
-    private void _gameDifficulty(string Difficulty)
+    private void _gameDifficulty(GameManager.DifficultyLevel Difficulty)
     {
         switch(Difficulty)
         {
-            case "Easy":
+            case GameManager.DifficultyLevel.Easy:
                 _batteryDischargeRate = 0.04f;
                 break;
-            case "Normal":
+            case GameManager.DifficultyLevel.Normal:
                 _batteryDischargeRate = 0.06f;
                 break;
-            case "Hard":
+            case GameManager.DifficultyLevel.Hard:
                 _batteryDischargeRate = 0.10f;
                 break;
             default:
@@ -121,13 +120,16 @@ public class GameController : MonoBehaviour {
     /// <param name="SpooksLeft">Spooks Left In Game</param>
     /// <param name="BatteriesLeft">How many batties they used</param>
     /// <returns></returns>
-    private float _calculateScore(float _timeToEnd,int SpooksLeft, int BatteriesLeft)
+    private float _calculateScore(float _time,int SpooksLeft, int BatteriesLeft)
     {
-        float timeFactor = 1 / _timeToEnd;
-        float enemiesFactor = SpooksLeft * 10;
-        float powerUpsFactor = BatteriesLeft * 5;
+        float score = 0;
+        float timeFactor = 100 / _time;
+        float enemiesFactor = 100 / (SpooksLeft + 1);
+        float batteriesFactor = 100 / (BatteriesLeft + 1);
 
-        return timeFactor + enemiesFactor + powerUpsFactor;
+        score = timeFactor + enemiesFactor + batteriesFactor;
+
+        return score;
 
     }
 

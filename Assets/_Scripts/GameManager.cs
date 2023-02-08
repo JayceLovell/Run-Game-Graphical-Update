@@ -8,7 +8,12 @@ public class GameManager : MonoBehaviour {
 
     private static GameManager _instance;  
     private ScoreManager _scoreManager;
-    private string _difficulty;
+    public enum DifficultyLevel
+    {
+        Easy,
+        Normal,
+        Hard
+    }
     private float _bgmVolume;
     private float _sfxVolume;
     private bool _isGamePaused;
@@ -34,18 +39,8 @@ public class GameManager : MonoBehaviour {
         get { return _scoreManager; }
         set { _scoreManager = value; }
     }
-    public string Difficulty
-    {
-        get
-        {
-            return _difficulty;
-        }
+    public DifficultyLevel Difficulty;
 
-        set
-        {
-            _difficulty = value;
-        }
-    }
     public float BGMVolume
     {
         get
@@ -146,13 +141,13 @@ public class GameManager : MonoBehaviour {
     }
     private void _LoadPlayerSettings()
     {
-        _difficulty = PlayerPrefs.GetString("Difficulty");
+        Difficulty = (DifficultyLevel)PlayerPrefs.GetInt("Difficulty");
         _bgmVolume = PlayerPrefs.GetFloat("BGM");
         _sfxVolume = PlayerPrefs.GetFloat("SFX");
     }
     private void _savePlayerSettings()
     {
-        PlayerPrefs.SetString("Difficulty", Difficulty);
+        PlayerPrefs.SetInt("Difficulty", (int)Difficulty);
         PlayerPrefs.SetFloat("SFX", SFXVolume);
         PlayerPrefs.SetFloat("BGM", BGMVolume);      
         PlayerPrefs.Save();

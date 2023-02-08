@@ -11,6 +11,7 @@ TagManager:
   - Battery
   - MiniCam
   - BatteryPosition
+  - Spook
   layers:
   - Default
   - TransparentFX

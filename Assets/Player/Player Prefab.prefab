@@ -346,8 +346,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75708af4eb8a54449ad90470d7b6ada9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Instructions: {fileID: 0}
   PlayerDirection: {fileID: 8778823209289592732}
-  GameWon: {fileID: 0}
 --- !u!82 &2919171592369951715
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1104,6 +1104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8778823209289592732}
   - component: {fileID: 4662949818967795199}
+  - component: {fileID: 8213117686439529043}
   m_Layer: 0
   m_Name: PlayerCameraRoot & FlashLight
   m_TagString: CinemachineTarget
@@ -1138,13 +1139,13 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 4
-  m_Range: 22
-  m_SpotAngle: 50
+  m_Intensity: 1
+  m_Range: 20
+  m_SpotAngle: 20
   m_InnerSpotAngle: 5
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -1188,3 +1189,17 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!136 &8213117686439529043
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8778823209289592731}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.23
+  m_Height: 10
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 4.93}

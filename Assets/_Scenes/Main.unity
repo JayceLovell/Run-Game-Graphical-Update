@@ -107,23 +107,23 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
-    agentHeight: 1
-    agentSlope: 9.9
-    agentClimb: 0.1
+    agentRadius: 1.5
+    agentHeight: 4
+    agentSlope: 45
+    agentClimb: 1
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.5
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    accuratePlacement: 1
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: dd89a4d808fedd84ab5d533397f6eccc, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: b04b2b09a29c7514594eeb7a710fd3ce, type: 2}
 --- !u!1001 &7726440
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -810,7 +810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 158397635}
   m_Layer: 0
-  m_Name: Point
+  m_Name: Waypoint
   m_TagString: WayPoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -824,7 +824,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158397634}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 40.1, y: 1.12, z: -124.4}
+  m_LocalPosition: {x: 40.1, y: 1.12, z: -120.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1182,7 +1182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 226345728}
   m_Layer: 0
-  m_Name: Point
+  m_Name: Waypoint
   m_TagString: WayPoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1196,7 +1196,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226345727}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -61.1, y: 1.12, z: -125.1}
+  m_LocalPosition: {x: -59.88, y: 1.12, z: -125.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1676,7 +1676,7 @@ GameObject:
   m_Component:
   - component: {fileID: 336611110}
   m_Layer: 0
-  m_Name: Point
+  m_Name: Waypoint
   m_TagString: WayPoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2214,7 +2214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 425352871}
   m_Layer: 0
-  m_Name: Point
+  m_Name: Waypoint
   m_TagString: WayPoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2228,7 +2228,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425352870}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -79.7, y: 1.12, z: -64.1}
+  m_LocalPosition: {x: -79.7, y: 1.12, z: -64.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4930,7 +4930,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1176044185}
   m_Layer: 0
-  m_Name: Point
+  m_Name: Waypoint
   m_TagString: WayPoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -4944,7 +4944,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1176044184}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.13, y: 1.12, z: -204.29}
+  m_LocalPosition: {x: 6.13, y: 1.12, z: -200.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4961,7 +4961,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1186485806}
   m_Layer: 0
-  m_Name: Point
+  m_Name: Waypoint
   m_TagString: WayPoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -4975,7 +4975,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186485805}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 31.5, y: 1.12, z: -45.1}
+  m_LocalPosition: {x: 31.5, y: 1.12, z: -41.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5303,7 +5303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1236197034}
   m_Layer: 0
-  m_Name: Points
+  m_Name: Spook Naviation Points
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -5852,7 +5852,7 @@ GameObject:
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1425651866
 Transform:
   m_ObjectHideFlags: 0
@@ -7352,7 +7352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1779869042}
   m_Layer: 0
-  m_Name: Point
+  m_Name: Waypoint
   m_TagString: WayPoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -7366,7 +7366,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779869041}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.1, y: 1.12, z: -205}
+  m_LocalPosition: {x: -10.1, y: 1.12, z: -201.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7601,7 +7601,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1852601718}
   m_Layer: 0
-  m_Name: Point
+  m_Name: Waypoint
   m_TagString: WayPoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -7615,7 +7615,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1852601717}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6, y: 1.12, z: -84.2}
+  m_LocalPosition: {x: 0.6, y: 1.12, z: -81.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7766,6 +7766,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1898618112}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1898618114 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000011315897212, guid: f7b5c323ff631044a99b138db88c42b0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1898618112}
+  m_PrefabAsset: {fileID: 0}
+--- !u!208 &1898618115
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898618114}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 20, y: 20, z: 0.15}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.15}
+  m_TimeToStationary: 0.5
 --- !u!1 &1915350751
 GameObject:
   m_ObjectHideFlags: 0
@@ -8270,7 +8292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2036110394}
   m_Layer: 0
-  m_Name: Point
+  m_Name: Waypoint
   m_TagString: WayPoint
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -8284,7 +8306,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2036110393}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -59.9, y: 1.12, z: -5}
+  m_LocalPosition: {x: -59.9, y: 1.12, z: -4.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8318,7 +8340,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000011315897212, guid: f7b5c323ff631044a99b138db88c42b0, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4000014104642124, guid: f7b5c323ff631044a99b138db88c42b0, type: 3}
       propertyPath: m_RootOrder
@@ -8342,7 +8364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000014104642124, guid: f7b5c323ff631044a99b138db88c42b0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 4000014104642124, guid: f7b5c323ff631044a99b138db88c42b0, type: 3}
       propertyPath: m_LocalRotation.w
