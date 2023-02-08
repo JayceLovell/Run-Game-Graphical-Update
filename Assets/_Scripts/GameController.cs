@@ -61,7 +61,7 @@ public class GameController : MonoBehaviour {
         _spawnSpooks();
         _gameTime = 0;
         _batteryCharge = 100f;
-        _gameDifficulty(GameManager.Difficulty);
+        _gameDifficulty(_gameManager.Difficulty);
         //lock cursor to screen
         Cursor.lockState = CursorLockMode.Locked;
         _spawnBatteries();
@@ -95,17 +95,17 @@ public class GameController : MonoBehaviour {
             Batteries.Add(Instantiate(Battery, position));
         }
     }
-    private void _gameDifficulty(string Difficulty)
+    private void _gameDifficulty(GameManager.DifficultyLevel Difficulty)
     {
         switch(Difficulty)
         {
-            case "Easy":
+            case GameManager.DifficultyLevel.Easy:
                 _batteryDischargeRate = 0.04f;
                 break;
-            case "Normal":
+            case GameManager.DifficultyLevel.Normal:
                 _batteryDischargeRate = 0.06f;
                 break;
-            case "Hard":
+            case GameManager.DifficultyLevel.Hard:
                 _batteryDischargeRate = 0.10f;
                 break;
             default:

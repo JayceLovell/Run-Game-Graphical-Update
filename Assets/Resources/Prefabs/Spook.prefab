@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4000012939438896}
   - component: {fileID: 1620744321044684541}
   - component: {fileID: 8253260270722824873}
+  - component: {fileID: 1002957385}
   m_Layer: 8
   m_Name: Spook
   m_TagString: Spook
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000010738079766}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -46,7 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae3e84ecf7b12c418dabf8032812e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  point: {fileID: 0}
 --- !u!195 &8253260270722824873
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -69,6 +69,20 @@ NavMeshAgent:
   m_BaseOffset: 2
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &1002957385
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000010738079766}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.5
+  m_Height: 4
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1000012899896818
 GameObject:
   m_ObjectHideFlags: 0

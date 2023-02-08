@@ -5,38 +5,65 @@ using UnityEngine.AI;
 
 public class SpookBehavior : MonoBehaviour
 {
-    private GameController _gameController;
-    private Animator _animator;
-    private NavMeshAgent _navMeshAgent;
+    private GameController gameController;
+    private Animator animator;
+    private NavMeshAgent navMeshAgent;
     private bool isChasing;
-    [SerializeField]
     private Transform target;
-    [SerializeField]
     private Vector3 home;
+    private Vector3 destination;
+    private float patrolRadius = 10f;
+    private float chasingRange;
 
     public bool IsChasing
     {
         get { return isChasing; }
         set { 
             isChasing = value;
-            _animator.SetBool("Chasing", value);
+            animator.SetBool("Chasing", value);
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //_gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-        _animator = GetComponent<Animator>();
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-        //_navMeshAgent.SetDestination(target.position);
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        animator = GetComponent<Animator>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
         home = GetComponent<Transform>().position;
+
+        switch (gameController.GameManager.Difficulty)
+        {
+            case GameManager.DifficultyLevel.Easy:
+                patrolRadius = 5;
+                navMeshAgent.speed = 3;
+                break;
+            case GameManager.DifficultyLevel.Normal:
+                patrolRadius = 10;
+                navMeshAgent.speed = 5;
+                break;
+            case GameManager.DifficultyLevel.Hard:
+                patrolRadius = 15;
+                navMeshAgent.speed = 8;
+                break;
+            default:
+                break;
+
+        }
+        SetRandomDestination();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!gameController.GameManager.IsGamePaused)
+        {
+            if (navMeshAgent.remainingDistance < 0.1f)
+            {
+                SetRandomDestination();
+            }
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -44,7 +71,16 @@ public class SpookBehavior : MonoBehaviour
         {
             //Vector3 fleeDirection = (transform.position - target.position).normalized;
             //Vector3 fleeDestination = transform.position + fleeDirection * 10f;
-            _navMeshAgent.SetDestination(home);
+            navMeshAgent.SetDestination(home);
         }
+    }
+
+    private void SetRandomDestination()
+    {
+        float randomAngle = Random.Range(0f, 360f);
+        float randomX = home.x + patrolRadius * Mathf.Sin(randomAngle * Mathf.Deg2Rad);
+        float randomZ = home.z + patrolRadius * Mathf.Cos(randomAngle * Mathf.Deg2Rad);
+        destination = new Vector3(randomX, home.y, randomZ);
+        navMeshAgent.SetDestination(destination);
     }
 }

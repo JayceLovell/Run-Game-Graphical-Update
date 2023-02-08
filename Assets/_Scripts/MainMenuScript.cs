@@ -59,13 +59,13 @@ public class MainMenuScript : MonoBehaviour {
         switch (target.value)
         {
             case 0:
-                _gameManager.Difficulty = "Easy";
+                _gameManager.Difficulty = GameManager.DifficultyLevel.Easy;
                 break;
             case 1:
-                _gameManager.Difficulty = "Normal";
+                _gameManager.Difficulty = GameManager.DifficultyLevel.Normal;
                 break;
             case 2:
-                _gameManager.Difficulty = "Hard";
+                _gameManager.Difficulty = GameManager.DifficultyLevel.Hard;
                 break;
         }
     }
