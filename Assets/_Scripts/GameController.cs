@@ -72,8 +72,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
         if (!GameManager.IsGamePaused)
         {
-            _gameTime += Time.deltaTime;
-            BatteryCharge -= _batteryDischargeRate;
+            _gameTime += Time.deltaTime;            
             _gameManager.Score = _calculateScore(GameTime, Spooks.Count, Batteries.Count);
         }
     }
