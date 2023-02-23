@@ -17,6 +17,10 @@ public class PlayerWon : MonoBehaviour {
     {
         _gameController=GameObject.Find("GameController").GetComponent<GameController>();
     }
+    void OnMouseOver()
+    {
+        //Debug.Log("Mouse Over Works");
+    }
     // Update is called once per frame
     void FixedUpdate () {
         // need a variable to hold the location of our Raycast look
@@ -34,17 +38,17 @@ public class PlayerWon : MonoBehaviour {
                 _Instructions.gameObject.SetActive(false);
             }
         }
-        if (Input.GetButtonDown("Fire1"))
-        { 
+        //if (Input.GetButtonDown("Fire1"))
+        //{ 
 
-            // if raycast hits an object then do somthing....
-            if(Physics.Raycast (this.PlayerDirection.position,this.PlayerDirection.forward, out hit))
-            {
-                if (hit.transform.gameObject.CompareTag("Car"))
-                {
-                    _gameController.GameManager.IsGameWon = true;
-                }
-            }
-        }
+        //    // if raycast hits an object then do somthing....
+        //    if(Physics.Raycast (this.PlayerDirection.position,this.PlayerDirection.forward, out hit))
+        //    {
+        //        if (hit.transform.gameObject.CompareTag("Car"))
+        //        {
+        //            _gameController.GameManager.IsGameWon = true;
+        //        }
+        //    }
+        //}
 	}
 }
