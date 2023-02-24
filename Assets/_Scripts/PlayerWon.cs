@@ -6,49 +6,52 @@ using TMPro;
 public class PlayerWon : MonoBehaviour {
 
     [SerializeField]
-    private TextMeshProUGUI _Instructions;
+    private GameObject _Instructions;
+    [SerializeField]
+    private Material BloomMaterial;
+    [SerializeField]
+    private bool isMouseOver;
 
     private GameController _gameController;
 
-    public Transform PlayerDirection;
+    private readonly float startThreshold = 0.8f;
+    private readonly float endThreshold = 0.5f;
+    private readonly float amplitude = 0.5f;
+    private readonly float duration = 0.5f;
+    private float timer = 0f;
 
 
     void Start()
     {
         _gameController=GameObject.Find("GameController").GetComponent<GameController>();
+        //_Instructions = GameObject.Find("Game Won Instructions");       
     }
     void OnMouseOver()
     {
-        //Debug.Log("Mouse Over Works");
+        isMouseOver=true;
+        _Instructions.SetActive(true);
     }
-    // Update is called once per frame
-    void FixedUpdate () {
-        // need a variable to hold the location of our Raycast look
-        RaycastHit hit;
-
-        //if raycast hits an object then do somthing....
-        if(Physics.Raycast (this.PlayerDirection.position, this.PlayerDirection.forward, out hit))
+    void OnMouseExit()
+    {
+        isMouseOver=false;
+        _Instructions.SetActive(false);
+    }
+    void OnMouseDown()
+    {
+        _gameController.GameManager.IsGameWon = true;
+    }
+    void Update()
+    {
+        if (isMouseOver)
         {
-            if (hit.transform.gameObject.CompareTag("Car"))
+            timer += Time.deltaTime;
+
+            float threshold = Mathf.Lerp(startThreshold, endThreshold, Mathf.PingPong(timer, duration) / duration);
+
+            if (BloomMaterial && BloomMaterial.HasProperty("_BloomThreshold"))
             {
-                _Instructions.gameObject.SetActive(true);
-            }
-            else
-            {
-                _Instructions.gameObject.SetActive(false);
+                BloomMaterial.SetFloat("_BloomThreshold", threshold);
             }
         }
-        //if (Input.GetButtonDown("Fire1"))
-        //{ 
-
-        //    // if raycast hits an object then do somthing....
-        //    if(Physics.Raycast (this.PlayerDirection.position,this.PlayerDirection.forward, out hit))
-        //    {
-        //        if (hit.transform.gameObject.CompareTag("Car"))
-        //        {
-        //            _gameController.GameManager.IsGameWon = true;
-        //        }
-        //    }
-        //}
-	}
+    }
 }
