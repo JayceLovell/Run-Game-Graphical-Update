@@ -18,7 +18,7 @@ public class BatteryEnergyUI : MonoBehaviour
     {
         if (!_gameController.GameManager.IsGamePaused)
         {
-            if(GameObject.FindGameObjectWithTag("Player").GetComponent<FlashLight>().IsLightsOn)
+            if(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().IsFlashLightOn)
                 GetComponent<Image>().fillAmount = _gameController.BatteryCharge/100;
             
         }

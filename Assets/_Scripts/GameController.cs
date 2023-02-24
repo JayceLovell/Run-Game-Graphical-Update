@@ -6,7 +6,6 @@ using System.Linq;
 
 public class GameController : MonoBehaviour {
     private GameManager _gameManager;
-    [SerializeField]
     private float _gameTime;
     private float _batteryCharge;
     private GameObject _respawnPoint;
@@ -18,6 +17,7 @@ public class GameController : MonoBehaviour {
     public List<GameObject> Batteries;
     public GameObject Spook;
     public GameObject Battery;
+    public GameObject Player;
 
     public GameManager GameManager
     {
@@ -34,6 +34,13 @@ public class GameController : MonoBehaviour {
         set
         {
             this._gameTime = value;
+        }
+    }
+    public float BatteryDischargeRate
+    {
+        get
+        {
+            return this._batteryDischargeRate;
         }
     }
     public float BatteryCharge
@@ -65,14 +72,15 @@ public class GameController : MonoBehaviour {
         //lock cursor to screen
         Cursor.lockState = CursorLockMode.Locked;
         _spawnBatteries();
-
+        Instantiate(Player, GameObject.FindGameObjectWithTag("Respawn").transform);
     }
     
 	// Update is called once per frame
 	void Update () {
         if (!GameManager.IsGamePaused)
         {
-            _gameTime += Time.deltaTime;            
+            _gameTime += Time.deltaTime;
+            BatteryCharge -= _batteryDischargeRate;
             _gameManager.Score = _calculateScore(GameTime, Spooks.Count, Batteries.Count);
         }
     }
