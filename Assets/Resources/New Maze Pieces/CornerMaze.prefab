@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3352427941608036754}
-  - component: {fileID: 4422557816516810924}
   - component: {fileID: 1963018527598504079}
   - component: {fileID: 8394158180418401727}
+  - component: {fileID: 4496817217319000276}
   m_Layer: 0
   m_Name: CornerMaze
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
@@ -34,20 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &4422557816516810924
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2092555522735642297}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2432090755550338912, guid: 70746629e25992a4b92c04d814e39714, type: 3}
 --- !u!23 &1963018527598504079
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -97,4 +83,18 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2092555522735642297}
-  m_Mesh: {fileID: -2432090755550338912, guid: 70746629e25992a4b92c04d814e39714, type: 3}
+  m_Mesh: {fileID: -2432090755550338912, guid: b531ec3211961f8478f0c004ae5572d6, type: 3}
+--- !u!64 &4496817217319000276
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092555522735642297}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2432090755550338912, guid: b531ec3211961f8478f0c004ae5572d6, type: 3}

@@ -105,7 +105,10 @@ public class PlayerController : MonoBehaviour
 
     private void Pause()
     {
-        //Implement pause here or switch to UI manager
+        if (GameManager.Instance.IsGamePaused)
+            GameManager.Instance.IsGamePaused = false;
+        else
+            GameManager.Instance.IsGamePaused = true;
     }
 
     //handle player jump in terms of if the player is grounded
