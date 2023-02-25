@@ -12,6 +12,7 @@ TagManager:
   - MiniCam
   - BatteryPosition
   - Spook
+  - EnemyPosition
   layers:
   - Default
   - TransparentFX
