@@ -8,12 +8,19 @@ public class SpookBehavior : MonoBehaviour
     private GameController gameController;
     private Animator animator;
     private NavMeshAgent navMeshAgent;
+    [SerializeField]
     private bool isChasing;
+    [SerializeField]
     private Transform target;
+    [SerializeField]
     private Vector3 home;
+    [SerializeField]
     private Vector3 destination;
+    [SerializeField]
+    private float distanceToTarget;
+    [SerializeField]
     private float patrolRadius = 10f;
-    private float chasingRange;
+    private GameObject[] PatrolPoints;
 
     public bool IsChasing
     {
@@ -27,60 +34,92 @@ public class SpookBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         home = GetComponent<Transform>().position;
+        PatrolPoints = GameObject.FindGameObjectsWithTag("EnemyPosition");
 
-        switch (gameController.GameManager.Difficulty)
+        switch (GameManager.Instance.Difficulty)
         {
             case GameManager.DifficultyLevel.Easy:
-                patrolRadius = 5;
+                patrolRadius = 10;
                 navMeshAgent.speed = 3;
                 break;
             case GameManager.DifficultyLevel.Normal:
-                patrolRadius = 10;
+                patrolRadius = 15;
                 navMeshAgent.speed = 5;
                 break;
             case GameManager.DifficultyLevel.Hard:
-                patrolRadius = 15;
+                patrolRadius = 20;
                 navMeshAgent.speed = 8;
                 break;
             default:
                 break;
 
         }
-        SetRandomDestination();
+        Patrol();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!gameController.GameManager.IsGamePaused)
+        if (!GameManager.Instance.IsGamePaused)
         {
-            if (navMeshAgent.remainingDistance < 0.1f)
+            distanceToTarget = Vector3.Distance(transform.position, target.position);
+            if (distanceToTarget < patrolRadius || isChasing)
+                Chase();
+            else if (navMeshAgent.remainingDistance < 0.1f && !IsChasing)
             {
-                SetRandomDestination();
+                Patrol();
+                IsChasing = false;
             }
+        }
+        else
+            navMeshAgent.isStopped = true;
+    }
+    private void Chase()
+    {
+        if (IsChasing)
+        {
+            if (distanceToTarget < 50.0f)
+            {
+                destination = target.position;
+                navMeshAgent.SetDestination(destination);
+            }
+            else
+            {
+                navMeshAgent.SetDestination(home);
+                IsChasing = false;
+            }
+
+        }
+        else
+        {
+            destination = target.position;
+            navMeshAgent.SetDestination(destination);
+            IsChasing = true;
+            navMeshAgent.isStopped = false;
         }
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.name== "PlayerCameraRoot & FlashLight")
         {
-            //Vector3 fleeDirection = (transform.position - target.position).normalized;
-            //Vector3 fleeDestination = transform.position + fleeDirection * 10f;
             navMeshAgent.SetDestination(home);
         }
     }
 
-    private void SetRandomDestination()
+    private void Patrol()
     {
-        float randomAngle = Random.Range(0f, 360f);
-        float randomX = home.x + patrolRadius * Mathf.Sin(randomAngle * Mathf.Deg2Rad);
-        float randomZ = home.z + patrolRadius * Mathf.Cos(randomAngle * Mathf.Deg2Rad);
-        destination = new Vector3(randomX, home.y, randomZ);
-        navMeshAgent.SetDestination(destination);
+        Vector3 randomPositon = PatrolPoints[Random.Range(0, PatrolPoints.Length)].transform.position;
+
+        navMeshAgent.SetDestination(randomPositon);
+
+        // Reset the animator
+        animator.SetBool("Chasing", false);
+        IsChasing = false;
+        navMeshAgent.isStopped = false;
     }
 }

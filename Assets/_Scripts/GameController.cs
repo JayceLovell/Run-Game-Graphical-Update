@@ -59,39 +59,52 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    private void Awake()
-    {
-        _gameManager = GameManager.Instance;
-    }
     // Use this for initialization
     void Start () {
-        _spawnSpooks();
+        _gameManager = GameManager.Instance;        
         _gameTime = 0;
         _batteryCharge = 100f;
         _gameDifficulty(_gameManager.Difficulty);
+
         //lock cursor to screen
         Cursor.lockState = CursorLockMode.Locked;
+
+        _spawnSpooks();
         _spawnBatteries();
-        Instantiate(Player, GameObject.FindGameObjectWithTag("Respawn").transform);
+
+        if (_gameManager.IsDebuging)
+        { 
+            //Do Nothing atm
+        }
+        else
+            Instantiate(Player, GameObject.FindGameObjectWithTag("Respawn").transform);
     }
     
 	// Update is called once per frame
 	void Update () {
-        if (!GameManager.IsGamePaused)
+        if (_gameManager.IsDebuging)
+            return;
+        else
         {
-            _gameTime += Time.deltaTime;
-            BatteryCharge -= _batteryDischargeRate;
-            _gameManager.Score = _calculateScore(GameTime, Spooks.Count, Batteries.Count);
+            if (!GameManager.IsGamePaused)
+            {
+                _gameTime += Time.deltaTime;
+                BatteryCharge -= _batteryDischargeRate;
+                _gameManager.Score = _calculateScore(GameTime, Spooks.Count, Batteries.Count);
+            }
         }
     }
 
     // Private METHODS*******************************
     private void _spawnSpooks()
     {
-        //for(int i = 0; i < _spooks.Length;i++)
-        //{
-        //    _spooks[i] = Instantiate(Spook, _respawnPoint.transform.position,_respawnPoint.transform.rotation);
-        //}
+        GameObject[] spookPositions = GameObject.FindGameObjectsWithTag("EnemyPosition");
+
+        foreach(GameObject pos in spookPositions)
+        {
+            Spooks.Add(Instantiate(Spook,pos.transform));
+        }
+       
     }
     private void _spawnBatteries()
     {

@@ -26,18 +26,8 @@ public class GameManager : MonoBehaviour {
     private string _userName;
     private float _score;
 
-    public static GameManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                DontDestroyOnLoad(GameManager.Instance);
-                Debug.LogError("Game Manager is NULL");
-            }
-            return _instance;
-        }
-    }
+    public static GameManager Instance { get; private set; }
+
     public ScoreManager ScoreManager
     {
         get { return _scoreManager; }
@@ -134,8 +124,14 @@ public class GameManager : MonoBehaviour {
     //Awake is always called before any Start functions
     void Awake()
     {
-        _instance = this;
-        DontDestroyOnLoad(GameManager.Instance);      
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
         _scoreManager = new ScoreManager();
     }
         // Use this for initialization
