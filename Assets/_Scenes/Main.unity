@@ -1674,6 +1674,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1691d887a3e2834484c4f96aa9b5bb5, type: 3}
+--- !u!1 &2236016463633120617 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3636723114641597124, guid: a1691d887a3e2834484c4f96aa9b5bb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2236016463633120616}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2236016463633120618 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2236016461731645574, guid: a1691d887a3e2834484c4f96aa9b5bb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2236016463633120616}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2236016463633120619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 68536699863448934, guid: a1691d887a3e2834484c4f96aa9b5bb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2236016463633120616}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2236016463633120620 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8355677988645566360, guid: a1691d887a3e2834484c4f96aa9b5bb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2236016463633120616}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2236016463633120621 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 136394610578095748, guid: a1691d887a3e2834484c4f96aa9b5bb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2236016463633120616}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8827829414727971659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1681,6 +1711,47 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8827829414111076456, guid: d6c242678daf2b346a3db559dfec4000,
+        type: 3}
+      propertyPath: Spook
+      value: 
+      objectReference: {fileID: 5039827238492138756, guid: 5279cc3c42d6c254fb63507c929d878c,
+        type: 3}
+    - target: {fileID: 8827829414111076456, guid: d6c242678daf2b346a3db559dfec4000,
+        type: 3}
+      propertyPath: Spooks.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827829414111076456, guid: d6c242678daf2b346a3db559dfec4000,
+        type: 3}
+      propertyPath: Batteries.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827829414111076456, guid: d6c242678daf2b346a3db559dfec4000,
+        type: 3}
+      propertyPath: Spooks.Array.data[0]
+      value: 
+      objectReference: {fileID: 2236016463633120621}
+    - target: {fileID: 8827829414111076456, guid: d6c242678daf2b346a3db559dfec4000,
+        type: 3}
+      propertyPath: Spooks.Array.data[1]
+      value: 
+      objectReference: {fileID: 2236016463633120620}
+    - target: {fileID: 8827829414111076456, guid: d6c242678daf2b346a3db559dfec4000,
+        type: 3}
+      propertyPath: Spooks.Array.data[2]
+      value: 
+      objectReference: {fileID: 2236016463633120619}
+    - target: {fileID: 8827829414111076456, guid: d6c242678daf2b346a3db559dfec4000,
+        type: 3}
+      propertyPath: Batteries.Array.data[0]
+      value: 
+      objectReference: {fileID: 2236016463633120618}
+    - target: {fileID: 8827829414111076456, guid: d6c242678daf2b346a3db559dfec4000,
+        type: 3}
+      propertyPath: Batteries.Array.data[1]
+      value: 
+      objectReference: {fileID: 2236016463633120617}
     - target: {fileID: 8827829414111076457, guid: d6c242678daf2b346a3db559dfec4000,
         type: 3}
       propertyPath: m_Name
