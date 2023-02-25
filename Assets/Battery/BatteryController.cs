@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class BatteryController : MonoBehaviour
 {
-    
+    [SerializeField] GameObject FireErosion;
+
     private GameController _gameController;
 
     // Use this for initialization
@@ -21,6 +22,8 @@ public class BatteryController : MonoBehaviour
             _gameController.Batteries.Remove(gameObject);
 
             Destroy(gameObject);
+            GameObject particleFX = Instantiate(FireErosion, transform.position, transform.rotation);
+            Destroy(particleFX, 0.75f);
         }        
     }
 }
