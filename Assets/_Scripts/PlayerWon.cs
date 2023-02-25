@@ -24,7 +24,7 @@ public class PlayerWon : MonoBehaviour {
     void Start()
     {
         _gameController=GameObject.Find("GameController").GetComponent<GameController>();
-        //_Instructions = GameObject.Find("Game Won Instructions");       
+        _Instructions = GameObject.Find("Game Won Instructions");       
     }
     void OnMouseOver()
     {
