@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEngine.GridBrushBase;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,6 +36,10 @@ public class PlayerController : MonoBehaviour
     public Light AboveLight;
     public AudioSource FlickerLight;
     public RawImage MiniMap;
+
+    public Camera MainCamera;
+    public Camera MiniMapCamera;
+    public Material grey;
 
 
     public bool IsGamePause
@@ -73,6 +78,8 @@ public class PlayerController : MonoBehaviour
 
         inputAction.Player.ReChargeBattery.performed += cntxt => ReChargeBattery();
 
+        inputAction.Player.SwitchLut.performed += cntxt => SwitchLut();
+
         rb = GetComponent<Rigidbody>();
 
         distanceToGround = GetComponent<Collider>().bounds.extents.y;
@@ -108,6 +115,12 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.Instance.IsDebuging)
             gameController.BatteryCharge = 100;
+    }
+
+    private void SwitchLut()
+    {
+        MainCamera.GetComponent<CameraLutScript>().m_renderMaterial = grey;
+        MiniMapCamera.GetComponent<CameraLutScript>().m_renderMaterial = grey;
     }
 
     private void Pause()
