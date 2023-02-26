@@ -102,6 +102,7 @@ public class PlayerController : MonoBehaviour
         //inputAction.UI.Pause.performed += cntxt => Pause();
 
         IsFlashLightOn = true;
+        lightFlickerStarted = false;
 
         SwitchLut();
 
@@ -183,7 +184,7 @@ public class PlayerController : MonoBehaviour
             if (isFlashLightOn)
                 gameController.BatteryCharge -= gameController.BatteryDischargeRate;
 
-            if (gameController.BatteryCharge < 0.30 && gameController.BatteryCharge > 0.01 && !lightFlickerStarted)
+            if (gameController.BatteryCharge < 0.40 && gameController.BatteryCharge > 0.01 && !lightFlickerStarted)
                 StartCoroutine(Fliker());
 
             RaycastHit hit;
@@ -228,7 +229,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
 
         SpotLight.intensity = 0;
-        FlickerLight.Play();
+        //FlickerLight.Play();
 
         yield return new WaitForSeconds(0.7f);
 
