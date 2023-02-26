@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     public Material grey;
 
     [Header("Breadcrumbs")]
-    public GameObject footprint;
+    public GameObject Breadcrumbs;
     public float nextBreadCrumb = 5.0f;
     public Vector3 lastBreadCrumbPos;
 
@@ -193,7 +193,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (Vector3.Distance(lastBreadCrumbPos, hit.point) > nextBreadCrumb)
                     {
-                        GameObject breadcrumb = Instantiate(footprint, hit.point + new Vector3(0, 0.1f, 0), Quaternion.identity);
+                        GameObject breadcrumb = Instantiate(Breadcrumbs, hit.point + new Vector3(0, 0.1f, 0), Quaternion.identity);
                         breadcrumb.transform.Rotate(90f, 0, 0);
                         lastBreadCrumbPos = hit.point;
                     }
