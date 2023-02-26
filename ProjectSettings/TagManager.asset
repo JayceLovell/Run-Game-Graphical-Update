@@ -7,12 +7,12 @@ TagManager:
   - Car
   - Map
   - WayPoint
-  - CinemachineTarget
   - Battery
   - MiniCam
   - BatteryPosition
   - Spook
   - EnemyPosition
+  - FlashLight
   layers:
   - Default
   - TransparentFX

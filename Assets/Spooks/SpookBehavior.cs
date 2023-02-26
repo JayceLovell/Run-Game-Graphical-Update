@@ -19,6 +19,7 @@ public class SpookBehavior : MonoBehaviour
     private List<Vector3> patrolPoints = new List<Vector3>();
     private int currentPatrolPointIndex;
     private float defaultSpeed;
+    private bool RunningAway;
 
     public GameObject Face;
     public Shader Specular;
@@ -51,6 +52,7 @@ public class SpookBehavior : MonoBehaviour
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         home = GetComponent<Transform>().position;
+        RunningAway= false;
 
         switch (GameManager.Instance.Difficulty)
         {
@@ -95,7 +97,7 @@ public class SpookBehavior : MonoBehaviour
             //Check if player is close
             distanceToTarget = Vector3.Distance(transform.position, Player.position);
 
-            if (distanceToTarget < patrolRadius || isChasing)
+            if ((distanceToTarget < patrolRadius || isChasing) && !RunningAway)
                 Chase();
             else if (navMeshAgent.remainingDistance < 1f && !IsChasing)
             {
@@ -131,13 +133,18 @@ public class SpookBehavior : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name == "PlayerCameraRoot & FlashLight")
+        if (other.tag == "FlashLight")
         {
             isChasing = false;
             navMeshAgent.SetDestination(home);
+            RunningAway = true;
         }
         else if (other.tag == "Player")
+        {
+            isChasing = false;
             other.transform.position = GameObject.FindGameObjectWithTag("Respawn").transform.position;
+            navMeshAgent.SetDestination(home);
+        }
     }
 
     private void Patrol()
@@ -149,5 +156,6 @@ public class SpookBehavior : MonoBehaviour
         animator.SetBool("Chasing", false);
         IsChasing = false;
         navMeshAgent.isStopped = false;
+        RunningAway= false;
     }
 }

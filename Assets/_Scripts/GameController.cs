@@ -125,13 +125,13 @@ public class GameController : MonoBehaviour {
         switch(Difficulty)
         {
             case GameManager.DifficultyLevel.Easy:
-                _batteryDischargeRate = 0.04f;
+                _batteryDischargeRate = 0.01f;
                 break;
             case GameManager.DifficultyLevel.Normal:
-                _batteryDischargeRate = 0.06f;
+                _batteryDischargeRate = 0.04f;
                 break;
             case GameManager.DifficultyLevel.Hard:
-                _batteryDischargeRate = 0.10f;
+                _batteryDischargeRate = 0.8f;
                 break;
             default:
                 _batteryDischargeRate = 0.02f;
