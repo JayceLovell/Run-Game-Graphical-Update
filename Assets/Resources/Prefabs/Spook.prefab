@@ -14,10 +14,11 @@ GameObject:
   - component: {fileID: 5039827238492138758}
   - component: {fileID: 5039827238492138757}
   - component: {fileID: 5039827238492138778}
+  - component: {fileID: 5995416914841410829}
   m_Layer: 0
   m_Name: Spook
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_TagString: Spook
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5039827238492138756}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.05, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -50,11 +51,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isChasing: 0
-  target: {fileID: 0}
-  home: {x: 0, y: 0, z: 0}
-  destination: {x: 0, y: 0, z: 0}
-  distanceToTarget: 0
-  patrolRadius: 50
 --- !u!33 &5039827238492138759
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -114,7 +110,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 5039827238492138756}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.2
+  m_Radius: 1.5
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -147,6 +143,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!135 &5995416914841410829
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5039827238492138756}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.4
+  m_Center: {x: -0.00000017881393, y: -0.0000005066395, z: 0.046352625}
 --- !u!1 &5039827239071743888
 GameObject:
   m_ObjectHideFlags: 0

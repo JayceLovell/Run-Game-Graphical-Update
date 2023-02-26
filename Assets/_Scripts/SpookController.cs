@@ -92,7 +92,7 @@ public class SpookController : MonoBehaviour {
         {
             _animator.SetBool("PlayerVisible", false);
         }
-        //Lastly, we get the distance to the next waypoint target
+        //Lastly, we get the distance to the next waypoint Player
         _distanceFromPoint = Vector3.Distance(PatrolPoints[_currentPoint].transform.position, transform.position);
         _updateAnimator();
     }

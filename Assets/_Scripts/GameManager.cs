@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
     }
     private float _bgmVolume;
     private float _sfxVolume;
+    [SerializeField]
     private bool _isGamePaused;
     private bool _isGameLost;
     private bool _isGameWon;
@@ -78,9 +79,7 @@ public class GameManager : MonoBehaviour {
         get { return _isGameLost; }
         set
         {
-            _isGameLost= value;
-            _scoreManager.AddScore(UserName, Score);
-            SceneManager.LoadScene("GameOver");
+            _isGameLost= value;            
         }
     }
     public bool IsGameWon

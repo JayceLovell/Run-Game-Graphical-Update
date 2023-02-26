@@ -2194,7 +2194,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1980554957}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.419665
+  m_Size: 0.95366496
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2802,7 +2802,6 @@ GameObject:
   - component: {fileID: 1104777448}
   - component: {fileID: 1104777446}
   - component: {fileID: 1104777445}
-  - component: {fileID: 1104777450}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2884,19 +2883,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1104777450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104777444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 552a146b27894834fbd766762cfa4e51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 141e9d1ede003144d82a0a41a8c20dbf, type: 2}
 --- !u!1 &1115958486
 GameObject:
   m_ObjectHideFlags: 0
@@ -3167,7 +3153,7 @@ MonoBehaviour:
     type: 3}
   m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_MoveAction: {fileID: -1680190386980627800, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
   m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018,
     type: 3}
@@ -4918,6 +4904,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 640240819190779900, guid: f928424946dc3b7469c5ae3f14674acc,
+        type: 3}
+      propertyPath: IsDebuging
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 640240819190779901, guid: f928424946dc3b7469c5ae3f14674acc,
         type: 3}

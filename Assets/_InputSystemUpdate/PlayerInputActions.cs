@@ -71,6 +71,33 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ReChargeBattery"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc8376b9-b1c0-4ae3-8b74-52948a633b74"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchLut"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a6eacee-aa52-4119-8d75-e4f679742211"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""ac6d5ce5-45cf-405b-a889-25c6f4357bad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -227,28 +254,33 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""FlashlightToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""UI"",
-            ""id"": ""dddf41b6-0643-400f-a639-fa1ceb485536"",
-            ""actions"": [
-                {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""8cbe04ef-b056-4fce-b898-edf090b16970"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
+                },
                 {
                     ""name"": """",
-                    ""id"": ""980e63f5-f86c-432f-96d1-950885c29dde"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""id"": ""43545d80-1315-47ff-bcef-6e0ec43f35bf"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReChargeBattery"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68b95340-763a-4d31-abc2-7e5fc9407a0f"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchLut"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c63b090-9a20-4f7e-b5e3-3da6f866a48e"",
+                    ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -258,7 +290,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2b41488d-5353-49b9-9618-104e49a186e2"",
+                    ""id"": ""58e941bc-d03f-45c1-8485-92a867b1311b"",
                     ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -268,6 +300,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""dddf41b6-0643-400f-a639-fa1ceb485536"",
+            ""actions"": [],
+            ""bindings"": []
         }
     ],
     ""controlSchemes"": []
@@ -279,9 +317,11 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_FlashlightToggle = m_Player.FindAction("FlashlightToggle", throwIfNotFound: true);
+        m_Player_ReChargeBattery = m_Player.FindAction("ReChargeBattery", throwIfNotFound: true);
+        m_Player_SwitchLut = m_Player.FindAction("SwitchLut", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
-        m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -346,6 +386,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_FlashlightToggle;
+    private readonly InputAction m_Player_ReChargeBattery;
+    private readonly InputAction m_Player_SwitchLut;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -355,6 +398,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @FlashlightToggle => m_Wrapper.m_Player_FlashlightToggle;
+        public InputAction @ReChargeBattery => m_Wrapper.m_Player_ReChargeBattery;
+        public InputAction @SwitchLut => m_Wrapper.m_Player_SwitchLut;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -379,6 +425,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @FlashlightToggle.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFlashlightToggle;
                 @FlashlightToggle.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFlashlightToggle;
                 @FlashlightToggle.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFlashlightToggle;
+                @ReChargeBattery.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReChargeBattery;
+                @ReChargeBattery.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReChargeBattery;
+                @ReChargeBattery.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReChargeBattery;
+                @SwitchLut.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchLut;
+                @SwitchLut.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchLut;
+                @SwitchLut.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchLut;
+                @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -398,6 +453,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @FlashlightToggle.started += instance.OnFlashlightToggle;
                 @FlashlightToggle.performed += instance.OnFlashlightToggle;
                 @FlashlightToggle.canceled += instance.OnFlashlightToggle;
+                @ReChargeBattery.started += instance.OnReChargeBattery;
+                @ReChargeBattery.performed += instance.OnReChargeBattery;
+                @ReChargeBattery.canceled += instance.OnReChargeBattery;
+                @SwitchLut.started += instance.OnSwitchLut;
+                @SwitchLut.performed += instance.OnSwitchLut;
+                @SwitchLut.canceled += instance.OnSwitchLut;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -406,12 +470,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     // UI
     private readonly InputActionMap m_UI;
     private IUIActions m_UIActionsCallbackInterface;
-    private readonly InputAction m_UI_Pause;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
         public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Pause => m_Wrapper.m_UI_Pause;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -421,16 +483,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_UIActionsCallbackInterface != null)
             {
-                @Pause.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
-                @Pause.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
-                @Pause.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Pause.started += instance.OnPause;
-                @Pause.performed += instance.OnPause;
-                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -442,9 +498,11 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnFlashlightToggle(InputAction.CallbackContext context);
+        void OnReChargeBattery(InputAction.CallbackContext context);
+        void OnSwitchLut(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
-        void OnPause(InputAction.CallbackContext context);
     }
 }

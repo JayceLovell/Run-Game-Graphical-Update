@@ -1,5 +1,5 @@
 {
-    "name": "PlayerActions",
+    "name": "PlayerInputActions",
     "maps": [
         {
             "name": "Player",
@@ -45,6 +45,33 @@
                     "name": "FlashlightToggle",
                     "type": "Button",
                     "id": "206d5dfc-e9f4-452a-9fa6-e0bc5e982bba",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ReChargeBattery",
+                    "type": "Button",
+                    "id": "fc8376b9-b1c0-4ae3-8b74-52948a633b74",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwitchLut",
+                    "type": "Button",
+                    "id": "9a6eacee-aa52-4119-8d75-e4f679742211",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "ac6d5ce5-45cf-405b-a889-25c6f4357bad",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -205,28 +232,33 @@
                     "action": "FlashlightToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "UI",
-            "id": "dddf41b6-0643-400f-a639-fa1ceb485536",
-            "actions": [
-                {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "8cbe04ef-b056-4fce-b898-edf090b16970",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "980e63f5-f86c-432f-96d1-950885c29dde",
-                    "path": "<Keyboard>/escape",
+                    "id": "43545d80-1315-47ff-bcef-6e0ec43f35bf",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReChargeBattery",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "68b95340-763a-4d31-abc2-7e5fc9407a0f",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchLut",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c63b090-9a20-4f7e-b5e3-3da6f866a48e",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -236,7 +268,7 @@
                 },
                 {
                     "name": "",
-                    "id": "2b41488d-5353-49b9-9618-104e49a186e2",
+                    "id": "58e941bc-d03f-45c1-8485-92a867b1311b",
                     "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
@@ -246,6 +278,12 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "dddf41b6-0643-400f-a639-fa1ceb485536",
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": []

@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour {
     public GameObject Spook;
     public GameObject Battery;
     public GameObject Player;
+    public GameObject TestPlayer;
 
     public GameManager GameManager
     {
@@ -73,11 +74,14 @@ public class GameController : MonoBehaviour {
         _spawnBatteries();
 
         if (_gameManager.IsDebuging)
-        { 
-            //Do Nothing atm
+        {
+            //GameObject.Find("Directional Light").SetActive(true);
+            Instantiate(TestPlayer, GameObject.FindGameObjectWithTag("Respawn").transform);
         }
         else
+        {
             Instantiate(Player, GameObject.FindGameObjectWithTag("Respawn").transform);
+        }
     }
     
 	// Update is called once per frame

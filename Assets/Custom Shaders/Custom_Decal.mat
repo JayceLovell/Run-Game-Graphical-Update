@@ -7,10 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Custom_Bloom Effect
-  m_Shader: {fileID: 4800000, guid: 8264eda1969f4094bb1df5e1f57fc05b, type: 3}
+  m_Name: Custom_Decal
+  m_Shader: {fileID: 4800000, guid: 43e077f3b20bd07478a51444ca63b6d9, type: 3}
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _SHOWDECAL_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -20,12 +21,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _DecalTex:
+        m_Texture: {fileID: 2800000, guid: f731b16c9a3710a4e947318ac46accef, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 8f9eb00975cf0ad48a2e72e8758775a6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5405a6a9c60e49e46aca1c91addca936, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BloomThreshold: 0.79111195
+    - _ShowDecal: 1
     m_Colors: []
   m_BuildTextureStacks: []
