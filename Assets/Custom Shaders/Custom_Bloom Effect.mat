@@ -26,6 +26,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BloomThreshold: 0.7686415
+    - _BloomThreshold: 0.79111195
     m_Colors: []
   m_BuildTextureStacks: []

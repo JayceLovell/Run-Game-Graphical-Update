@@ -1,5 +1,5 @@
 {
-    "name": "PlayerActions",
+    "name": "PlayerInputActions",
     "maps": [
         {
             "name": "Player",
@@ -45,6 +45,15 @@
                     "name": "FlashlightToggle",
                     "type": "Button",
                     "id": "206d5dfc-e9f4-452a-9fa6-e0bc5e982bba",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ReChargeBattery",
+                    "type": "Button",
+                    "id": "fc8376b9-b1c0-4ae3-8b74-52948a633b74",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -203,6 +212,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "FlashlightToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "43545d80-1315-47ff-bcef-6e0ec43f35bf",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReChargeBattery",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

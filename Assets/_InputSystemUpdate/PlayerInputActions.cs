@@ -71,6 +71,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ReChargeBattery"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc8376b9-b1c0-4ae3-8b74-52948a633b74"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -227,6 +236,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""FlashlightToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""43545d80-1315-47ff-bcef-6e0ec43f35bf"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReChargeBattery"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -279,6 +299,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_FlashlightToggle = m_Player.FindAction("FlashlightToggle", throwIfNotFound: true);
+        m_Player_ReChargeBattery = m_Player.FindAction("ReChargeBattery", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
@@ -346,6 +367,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_FlashlightToggle;
+    private readonly InputAction m_Player_ReChargeBattery;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -355,6 +377,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @FlashlightToggle => m_Wrapper.m_Player_FlashlightToggle;
+        public InputAction @ReChargeBattery => m_Wrapper.m_Player_ReChargeBattery;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -379,6 +402,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @FlashlightToggle.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFlashlightToggle;
                 @FlashlightToggle.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFlashlightToggle;
                 @FlashlightToggle.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFlashlightToggle;
+                @ReChargeBattery.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReChargeBattery;
+                @ReChargeBattery.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReChargeBattery;
+                @ReChargeBattery.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReChargeBattery;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -398,6 +424,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @FlashlightToggle.started += instance.OnFlashlightToggle;
                 @FlashlightToggle.performed += instance.OnFlashlightToggle;
                 @FlashlightToggle.canceled += instance.OnFlashlightToggle;
+                @ReChargeBattery.started += instance.OnReChargeBattery;
+                @ReChargeBattery.performed += instance.OnReChargeBattery;
+                @ReChargeBattery.canceled += instance.OnReChargeBattery;
             }
         }
     }
@@ -442,6 +471,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnFlashlightToggle(InputAction.CallbackContext context);
+        void OnReChargeBattery(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

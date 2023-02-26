@@ -4905,6 +4905,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 640240819190779900, guid: f928424946dc3b7469c5ae3f14674acc,
+        type: 3}
+      propertyPath: IsDebuging
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 640240819190779901, guid: f928424946dc3b7469c5ae3f14674acc,
         type: 3}
       propertyPath: m_RootOrder

@@ -71,6 +71,8 @@ public class PlayerController : MonoBehaviour
 
         inputAction.Player.FlashlightToggle.performed += cntxt => FlashLightToggle();
 
+        inputAction.Player.ReChargeBattery.performed += cntxt => ReChargeBattery();
+
         rb = GetComponent<Rigidbody>();
 
         distanceToGround = GetComponent<Collider>().bounds.extents.y;
@@ -101,6 +103,11 @@ public class PlayerController : MonoBehaviour
             MiniMap.color = new Color(1, 1, 1, 1);
             IsFlashLightOn = true;
         }
+    }
+    private void ReChargeBattery()
+    {
+        if (GameManager.Instance.IsDebuging)
+            gameController.BatteryCharge = 100;
     }
 
     private void Pause()

@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
     }
     private float _bgmVolume;
     private float _sfxVolume;
+    [SerializeField]
     private bool _isGamePaused;
     private bool _isGameLost;
     private bool _isGameWon;
