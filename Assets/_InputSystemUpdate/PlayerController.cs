@@ -31,16 +31,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Breadcrumbs")]
     public GameObject footprint;
-    [SerializeField]
-    private float nextBreadCrumb = 1.0f;
-    [SerializeField]
-    private Vector3 lastBreadCrumbPos;
+    public float nextBreadCrumb = 5.0f;
+    public Vector3 lastBreadCrumbPos;
 
     [Header("Flash Light Stuff")]
-    [SerializeField]
-    private bool lightFlickerStarted;
-    [SerializeField]
-    private bool isFlashLightOn;
+    public bool lightFlickerStarted;
+    public bool isFlashLightOn;
     public Light SpotLight;
     public Light AboveLight;
     public AudioSource FlickerLight;
@@ -82,6 +78,8 @@ public class PlayerController : MonoBehaviour
 
         inputAction.Player.Sprint.performed += cntxt => Sprint();
 
+        inputAction.Player.Pause.performed += cntxt => Pause();
+
         inputAction.Player.Move.performed += cntxt => move = cntxt.ReadValue<Vector2>();
         inputAction.Player.Move.canceled += cntxt => move = Vector2.zero;
 
@@ -101,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
 
         //This can be added to a seperate UI manager but added it here for now since it's just the pause
-        inputAction.UI.Pause.performed += cntxt => Pause();
+        //inputAction.UI.Pause.performed += cntxt => Pause();
 
         IsFlashLightOn = true;
 
@@ -111,6 +109,8 @@ public class PlayerController : MonoBehaviour
 
     private void FlashLightToggle()
     {
+        if(GameManager.Instance.IsGamePaused)
+        { return; }
         //To toggle the flashlight
         if (IsFlashLightOn)
         {
@@ -202,15 +202,18 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
-        cameraRotation = new Vector3(cameraRotation.x + rotate.y, cameraRotation.y + rotate.x, cameraRotation.z);
+        if (!gameController.GameManager.IsGamePaused)
+        {
+            cameraRotation = new Vector3(cameraRotation.x + rotate.y, cameraRotation.y + rotate.x, cameraRotation.z);
 
-        playerCamera.transform.rotation = Quaternion.Euler(cameraRotation);
-        transform.eulerAngles = new Vector3(transform.rotation.x, cameraRotation.y, transform.rotation.z);
+            playerCamera.transform.rotation = Quaternion.Euler(cameraRotation);
+            transform.eulerAngles = new Vector3(transform.rotation.x, cameraRotation.y, transform.rotation.z);
 
-        transform.Translate(Vector3.right * Time.deltaTime * move.x * walkSpeed, Space.Self);
-        transform.Translate(Vector3.forward * Time.deltaTime * move.y * walkSpeed, Space.Self);
+            transform.Translate(Vector3.right * Time.deltaTime * move.x * walkSpeed, Space.Self);
+            transform.Translate(Vector3.forward * Time.deltaTime * move.y * walkSpeed, Space.Self);
 
-        isGrounded = Physics.Raycast(transform.position, -Vector3.up, distanceToGround);        
+            isGrounded = Physics.Raycast(transform.position, -Vector3.up, distanceToGround);
+        }
     }
     /// <summary>
     /// TODO add sound for flickering

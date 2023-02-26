@@ -79,7 +79,9 @@ public class GameController : MonoBehaviour {
             Instantiate(TestPlayer, GameObject.FindGameObjectWithTag("Respawn").transform);
         }
         else
+        {
             Instantiate(Player, GameObject.FindGameObjectWithTag("Respawn").transform);
+        }
     }
     
 	// Update is called once per frame
