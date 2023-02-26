@@ -25,6 +25,11 @@ public class PlayerController : MonoBehaviour
     public Camera playerCamera;
     Vector3 cameraRotation;
 
+    public Camera MainCamera;
+    public Camera MiniMapCamera;
+    public Material grey;
+    public GameObject footprint;
+
     [Header("Flash Light Stuff")]
     private bool lightFlickerStarted;
     private bool isFlashLightOn;
@@ -37,10 +42,6 @@ public class PlayerController : MonoBehaviour
     public Light AboveLight;
     public AudioSource FlickerLight;
     public RawImage MiniMap;
-
-    public Camera MainCamera;
-    public Camera MiniMapCamera;
-    public Material grey;
 
 
     public bool IsGamePause
