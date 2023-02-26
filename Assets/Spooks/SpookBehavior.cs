@@ -7,6 +7,7 @@ public class SpookBehavior : MonoBehaviour
 {
     private GameController gameController;
     private Animator animator;
+    [SerializeField]
     private NavMeshAgent navMeshAgent;
     [SerializeField]
     private bool isChasing;
@@ -19,6 +20,9 @@ public class SpookBehavior : MonoBehaviour
     private int currentPatrolPointIndex;
     private float defaultSpeed;
 
+    public GameObject Face;
+    public Shader Specular;
+    public Shader Toon;
     public bool IsChasing
     {
         get { return isChasing; }
@@ -27,9 +31,15 @@ public class SpookBehavior : MonoBehaviour
             animator.SetBool("Chasing", value);
 
             if (value)
+            {
                 navMeshAgent.speed = navMeshAgent.speed * 2;
+                Face.GetComponent<Renderer>().material.shader = Toon;
+            }
             else
+            {
                 navMeshAgent.speed = defaultSpeed;
+                Face.GetComponent<Renderer>().material.shader = Specular;
+            }
         }
     }
 
@@ -77,7 +87,7 @@ public class SpookBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.Instance.IsGamePaused)
+        if (!GameManager.Instance.IsGamePaused && !GameManager.Instance.IsDebuging)
         {
             if(navMeshAgent.isStopped)
                 navMeshAgent.isStopped= false;
