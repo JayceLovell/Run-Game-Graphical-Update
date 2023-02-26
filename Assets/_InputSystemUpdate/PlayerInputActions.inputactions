@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "ac6d5ce5-45cf-405b-a889-25c6f4357bad",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -245,27 +254,10 @@
                     "action": "SwitchLut",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "UI",
-            "id": "dddf41b6-0643-400f-a639-fa1ceb485536",
-            "actions": [
-                {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "8cbe04ef-b056-4fce-b898-edf090b16970",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "980e63f5-f86c-432f-96d1-950885c29dde",
+                    "id": "5c63b090-9a20-4f7e-b5e3-3da6f866a48e",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
@@ -276,12 +268,71 @@
                 },
                 {
                     "name": "",
-                    "id": "2b41488d-5353-49b9-9618-104e49a186e2",
+                    "id": "58e941bc-d03f-45c1-8485-92a867b1311b",
                     "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "dddf41b6-0643-400f-a639-fa1ceb485536",
+            "actions": [
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "f918e83f-af6d-4b9c-9775-de1fb7624b92",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "1d339421-143d-415a-bb00-233f0135634f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2c38834d-653f-43e2-a0df-19783c8e0113",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "71e100f5-d58f-48f9-ae0f-f47f3c17488f",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f2e368b-67e9-4726-a449-a7f77914bf6e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -28,22 +28,32 @@ public class PlayerController : MonoBehaviour
     public Camera MainCamera;
     public Camera MiniMapCamera;
     public Material grey;
+
+    [Header("Breadcrumbs")]
     public GameObject footprint;
+    [SerializeField]
+    private float nextBreadCrumb = 1.0f;
+    [SerializeField]
+    private Vector3 lastBreadCrumbPos;
 
     [Header("Flash Light Stuff")]
+    [SerializeField]
     private bool lightFlickerStarted;
+    [SerializeField]
     private bool isFlashLightOn;
-    public bool IsFlashLightOn
-    {
-        get; 
-        private set;
-    }
     public Light SpotLight;
     public Light AboveLight;
     public AudioSource FlickerLight;
+
+
+    public bool IsFlashLightOn
+    {
+        get;
+        private set;
+    }
+
+
     public RawImage MiniMap;
-
-
     public bool IsGamePause
     {
         get
@@ -173,6 +183,20 @@ public class PlayerController : MonoBehaviour
 
             if (gameController.BatteryCharge < 0.30 && gameController.BatteryCharge > 0.01 && !lightFlickerStarted)
                 StartCoroutine(Fliker());
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, Vector3.down, out hit))
+            {
+                if (Physics.Raycast(transform.position, -Vector3.up, distanceToGround))
+                {
+                    if (Vector3.Distance(lastBreadCrumbPos, hit.point) > nextBreadCrumb)
+                    {
+                        GameObject breadcrumb = Instantiate(footprint, hit.point + new Vector3(0, 0.1f, 0), Quaternion.identity);
+                        breadcrumb.transform.Rotate(90f, 0, 0);
+                        lastBreadCrumbPos = hit.point;
+                    }
+                }
+            }
 
         }
     }

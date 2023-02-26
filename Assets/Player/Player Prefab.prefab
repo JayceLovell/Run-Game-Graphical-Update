@@ -339,13 +339,16 @@ MonoBehaviour:
   jump: 5
   walkSpeed: 5
   playerCamera: {fileID: 3520363731326670379}
+  MainCamera: {fileID: 3520363731326670379}
+  MiniMapCamera: {fileID: 6210724202907501989}
+  grey: {fileID: 2100000, guid: 78744f84c8b158545923c6b2ab07b504, type: 2}
+  footprint: {fileID: 938137784534818280, guid: 1a28fc64b56076a4c99ddec37606f929,
+    type: 3}
+  breadcrumbDistanceThreshold: 1
   SpotLight: {fileID: 6210724203969967112}
   AboveLight: {fileID: 6210724202907501988}
   FlickerLight: {fileID: 0}
   MiniMap: {fileID: 6210724203168887419}
-  MainCamera: {fileID: 3520363731326670379}
-  MiniMapCamera: {fileID: 6210724202907501989}
-  grey: {fileID: 2100000, guid: 78744f84c8b158545923c6b2ab07b504, type: 2}
 --- !u!54 &8908458634533888340
 Rigidbody:
   m_ObjectHideFlags: 0
