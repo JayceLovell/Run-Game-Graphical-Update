@@ -1,38 +1,24 @@
 Shader "Custom/Decal"
 {
     Properties
-    {       
-        _MainTex ("Texture", 2D) = "white" {}
-        _DecalTex("Decal",2D)="white"{}
-        [Toggle] _ShowDecal("Show Decal?",Float)=0
+    {        
+        _MainTex ("Texture", 2D) = "black" {}      
     }
     SubShader
     {
-        Tags { "Queue"="Geometry" }        
+        Tags { "Queue"="Transparent" }
 
-        CGPROGRAM
-        #pragma surface surf Lambert 
+        //Remove all Black
+        Blend One One
+        //Remove Black on outside
+        //Blend SrcAlpha OneMinusSrcAlpha
 
-        sampler2D _MainTex;
-        sampler2D _DecalTex;
-        float _ShowDecal;
+        //Black Only removes white i think?
+        //Blend DstColor Zero
 
-
-        struct Input
-        {
-            float2 uv_MainTex;
-        };
-
-       void surf(Input IN, inout SurfaceOutput o){
-            fixed4 a = tex2D(_MainTex, IN.uv_MainTex);
-            //fixed4 b = tex2D(_DecalTex, IN.uv_MainTex);
-            fixed4 b = tex2D(_DecalTex, IN.uv_MainTex)*_ShowDecal;
-
-            //o.Albedo = a.rgb * b.rgb;
-            //o.Albedo = a.rgb + b.rgb;
-            o.Albedo=b.r>0.9?b.rgb:a.rgb;
-       }
-        ENDCG
+        Pass{
+        SetTexture[_MainTex] {combine texture}
+        }
     }
     FallBack "Diffuse"
 }

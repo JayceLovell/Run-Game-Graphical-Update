@@ -79,9 +79,7 @@ public class GameManager : MonoBehaviour {
         get { return _isGameLost; }
         set
         {
-            _isGameLost= value;
-            _scoreManager.AddScore(UserName, Score);
-            SceneManager.LoadScene("GameOver");
+            _isGameLost= value;            
         }
     }
     public bool IsGameWon

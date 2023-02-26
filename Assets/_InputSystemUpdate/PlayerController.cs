@@ -105,6 +105,8 @@ public class PlayerController : MonoBehaviour
 
         SwitchLut();
 
+        nextBreadCrumb = 5.0f;
+
     }
 
     private void FlashLightToggle()
