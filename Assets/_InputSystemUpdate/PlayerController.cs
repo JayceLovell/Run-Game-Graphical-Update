@@ -11,6 +11,7 @@ using static UnityEngine.GridBrushBase;
 public class PlayerController : MonoBehaviour
 {
     private bool isGamePaused;
+    private bool isSprinting;
     PlayerInputActions inputAction;
     GameController gameController;
     Vector2 move;
@@ -68,6 +69,8 @@ public class PlayerController : MonoBehaviour
 
         inputAction.Player.Jump.performed += cntxt => Jump();
 
+        inputAction.Player.Sprint.performed += cntxt => Sprint();
+
         inputAction.Player.Move.performed += cntxt => move = cntxt.ReadValue<Vector2>();
         inputAction.Player.Move.canceled += cntxt => move = Vector2.zero;
 
@@ -90,6 +93,8 @@ public class PlayerController : MonoBehaviour
         inputAction.UI.Pause.performed += cntxt => Pause();
 
         IsFlashLightOn = true;
+
+        SwitchLut();
 
     }
 
@@ -119,8 +124,10 @@ public class PlayerController : MonoBehaviour
 
     private void SwitchLut()
     {
-        MainCamera.GetComponent<CameraLutScript>().m_renderMaterial = grey;
-        MiniMapCamera.GetComponent<CameraLutScript>().m_renderMaterial = grey;
+        MainCamera.GetComponent<CameraLutScript>().enabled = !MainCamera.GetComponent<CameraLutScript>().enabled;
+
+        MiniMapCamera.GetComponent<CameraLutScript>().enabled = !MiniMapCamera.GetComponent<CameraLutScript>().enabled;
+
     }
 
     private void Pause()
@@ -139,6 +146,20 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jump);
             isGrounded = false;
         }
+    }
+    private void Sprint()
+    {
+        if (isSprinting)
+        {
+            walkSpeed = walkSpeed / 2;
+            isSprinting = false;
+        }
+        else
+        {
+            walkSpeed = walkSpeed * 2;
+            isSprinting = true;
+        }
+
     }
 
     // Update is called once per frame

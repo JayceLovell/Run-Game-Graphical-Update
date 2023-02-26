@@ -23,7 +23,7 @@ public class BatteryController : MonoBehaviour
 
             Destroy(gameObject);
             GameObject particleFX = Instantiate(FireErosion, transform.position, transform.rotation);
-            Destroy(particleFX, 0.75f);
+            Destroy(particleFX, 2f);
         }        
     }
 }
