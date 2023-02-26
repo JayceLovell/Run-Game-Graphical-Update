@@ -1302,6 +1302,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079629409}
   m_CullTransparentMesh: 0
+--- !u!1 &1146794381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5850061375992015852, guid: a1691d887a3e2834484c4f96aa9b5bb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2236016463633120616}
+  m_PrefabAsset: {fileID: 0}
+--- !u!123 &1146794386
+LensFlare:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146794381}
+  m_Enabled: 1
+  m_Flare: {fileID: 12100000, guid: a7f802717657bce4c92baf0986b9415d, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Brightness: 0.5
+  m_FadeSpeed: 3
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Directional: 1
 --- !u!1 &1218824535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,6 +1738,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216178606570582959, guid: a1691d887a3e2834484c4f96aa9b5bb5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4216178606570582959, guid: a1691d887a3e2834484c4f96aa9b5bb5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 50.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1691d887a3e2834484c4f96aa9b5bb5, type: 3}
