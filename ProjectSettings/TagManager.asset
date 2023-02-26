@@ -4,14 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Scare
   - Car
   - Map
   - WayPoint
   - CinemachineTarget
   - Battery
   - MiniCam
-  - Ground
+  - BatteryPosition
+  - Spook
+  - EnemyPosition
   layers:
   - Default
   - TransparentFX
@@ -26,11 +27,7 @@ TagManager:
   - PlayerSpotLight
   - Maze
   - Location
-<<<<<<< Updated upstream
-  - Ground
-=======
-  - Post Processing
->>>>>>> Stashed changes
+  - 
   - 
   - 
   - 

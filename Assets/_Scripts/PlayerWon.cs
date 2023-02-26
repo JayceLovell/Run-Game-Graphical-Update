@@ -1,48 +1,57 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
-using UnityEngine.SceneManagement;
 using System;
+using TMPro;
 
-public class Player_Won_Controller : MonoBehaviour {
+public class PlayerWon : MonoBehaviour {
 
-    //Public
-    public Transform PlayerDirection;
-    public Text GameWon;
+    [SerializeField]
+    private GameObject _Instructions;
+    [SerializeField]
+    private Material BloomMaterial;
+    [SerializeField]
+    private bool isMouseOver;
 
-	// Use this for initialization
-	void Start () {
-        GameWon.gameObject.SetActive(false);
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-        // need a variable to hold the location of our Raycast look
-        RaycastHit hit;
+    private GameController _gameController;
 
-        //if raycast hits an object then do somthing....
-        if(Physics.Raycast (this.PlayerDirection.position, this.PlayerDirection.forward, out hit))
+    private readonly float startThreshold = 0.8f;
+    private readonly float endThreshold = 0.5f;
+    private readonly float amplitude = 0.5f;
+    private readonly float duration = 0.5f;
+    private float timer = 0f;
+
+
+    void Start()
+    {
+        _gameController=GameObject.Find("GameController").GetComponent<GameController>();
+        _Instructions = GameObject.Find("Game Won Instructions");       
+    }
+    void OnMouseOver()
+    {
+        isMouseOver=true;
+        _Instructions.SetActive(true);
+    }
+    void OnMouseExit()
+    {
+        isMouseOver=false;
+        _Instructions.SetActive(false);
+    }
+    void OnMouseDown()
+    {
+        _gameController.GameManager.IsGameWon = true;
+    }
+    void Update()
+    {
+        if (isMouseOver)
         {
-            if (hit.transform.gameObject.CompareTag("Car"))
-            {
-                GameWon.gameObject.SetActive(true);
-            }
-            else
-            {
-                GameWon.gameObject.SetActive(false);
-            }
-        }
-        if (Input.GetButtonDown("Fire1"))
-        { 
+            timer += Time.deltaTime;
 
-            // if raycast hits an object then do somthing....
-            if(Physics.Raycast (this.PlayerDirection.position,this.PlayerDirection.forward, out hit))
+            float threshold = Mathf.Lerp(startThreshold, endThreshold, Mathf.PingPong(timer, duration) / duration);
+
+            if (BloomMaterial && BloomMaterial.HasProperty("_BloomThreshold"))
             {
-                if (hit.transform.gameObject.CompareTag("Car"))
-                {
-                    SceneManager.LoadScene("GameWon");
-                }
+                BloomMaterial.SetFloat("_BloomThreshold", threshold);
             }
         }
-	}
+    }
 }
