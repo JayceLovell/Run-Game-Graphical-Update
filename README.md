@@ -20,6 +20,8 @@
  ### Slide Deck:
  [RunGameGraphicalUpdatePresentation.pdf](https://github.com/JayceLovell/Run-Game-Graphical-Update/files/10835300/RunGameGraphicalUpdatePresentation.pdf)
 
+ ### Download Game
+ [Run Game v0.1.8-Beta](https://github.com/JayceLovell/Run-Game-Graphical-Update/releases/tag/v0.1.8-beta)
  ### Part 1: Game Base & Description
 The objective is for the player to find his/her way out of a dark maze using a flashlight with a depleting battery life and enemies who attack or runaway if the light is placed on them, if the flashlight battery dies before the player escapes or the layer is killed by an enemy they lose. Around the map are moving collectable batteries to replenish the flashlight battery life.
 
