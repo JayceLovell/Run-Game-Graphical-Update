@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static UnityEngine.GridBrushBase;
@@ -30,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public Material grey;
 
     [Header("Breadcrumbs")]
-    public GameObject footprint;
+    public GameObject Breadcrumbs;
     public float nextBreadCrumb = 5.0f;
     public Vector3 lastBreadCrumbPos;
 
@@ -102,8 +100,11 @@ public class PlayerController : MonoBehaviour
         //inputAction.UI.Pause.performed += cntxt => Pause();
 
         IsFlashLightOn = true;
+        lightFlickerStarted = false;
 
         SwitchLut();
+
+        nextBreadCrumb = 5.0f;
 
     }
 
@@ -181,7 +182,7 @@ public class PlayerController : MonoBehaviour
             if (isFlashLightOn)
                 gameController.BatteryCharge -= gameController.BatteryDischargeRate;
 
-            if (gameController.BatteryCharge < 0.30 && gameController.BatteryCharge > 0.01 && !lightFlickerStarted)
+            if (gameController.BatteryCharge < 0.40 && gameController.BatteryCharge > 0.01 && !lightFlickerStarted)
                 StartCoroutine(Fliker());
 
             RaycastHit hit;
@@ -191,7 +192,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (Vector3.Distance(lastBreadCrumbPos, hit.point) > nextBreadCrumb)
                     {
-                        GameObject breadcrumb = Instantiate(footprint, hit.point + new Vector3(0, 0.1f, 0), Quaternion.identity);
+                        GameObject breadcrumb = Instantiate(Breadcrumbs, hit.point + new Vector3(0, 0.1f, 0), Quaternion.identity);
                         breadcrumb.transform.Rotate(90f, 0, 0);
                         lastBreadCrumbPos = hit.point;
                     }
@@ -226,7 +227,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
 
         SpotLight.intensity = 0;
-        FlickerLight.Play();
+        //FlickerLight.Play();
 
         yield return new WaitForSeconds(0.7f);
 

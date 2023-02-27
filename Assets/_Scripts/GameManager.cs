@@ -80,7 +80,6 @@ public class GameManager : MonoBehaviour {
         set
         {
             _isGameLost= value;
-            _scoreManager.AddScore(UserName, Score);
             SceneManager.LoadScene("GameOver");
         }
     }

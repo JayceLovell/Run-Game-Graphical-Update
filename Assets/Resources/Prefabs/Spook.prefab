@@ -50,7 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae3e84ecf7b12c418dabf8032812e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 0}
   isChasing: 0
+  Face: {fileID: 5039827239071743888}
+  Specular: {fileID: 4800000, guid: 8ae70c8913a77c040b4ab898ed55931b, type: 3}
+  Toon: {fileID: 4800000, guid: 49be96b7388b35f4581cfb0d0910a7b3, type: 3}
 --- !u!33 &5039827238492138759
 MeshFilter:
   m_ObjectHideFlags: 0
