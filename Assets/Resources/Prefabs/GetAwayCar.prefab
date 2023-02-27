@@ -207,6 +207,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4226659228359846500}
+  - component: {fileID: 7209769268012498965}
   m_Layer: 0
   m_Name: GetAwayCar
   m_TagString: Car
@@ -221,7 +222,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4226659228359882308}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.38168117, y: 0, z: -224.7314}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -234,6 +235,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7209769268012498965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4226659228359882308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75708af4eb8a54449ad90470d7b6ada9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Instructions: {fileID: 0}
+  BloomMaterial: {fileID: 2100000, guid: 13e47c3867840dd47a70d403fbd8c401, type: 2}
+  isMouseOver: 0
 --- !u!1 &4226659228359882310
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +312,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 768e60665f0afd049ba062f9d1477cfe, type: 2}
+  - {fileID: 2100000, guid: 13e47c3867840dd47a70d403fbd8c401, type: 2}
   - {fileID: 2100000, guid: 5fb22fa81dc34d647935cfdb9252ea1a, type: 2}
   - {fileID: 2100000, guid: c30bced88583292459e07f5b59bd326a, type: 2}
   m_StaticBatchInfo:

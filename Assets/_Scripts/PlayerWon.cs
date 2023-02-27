@@ -6,45 +6,52 @@ using TMPro;
 public class PlayerWon : MonoBehaviour {
 
     [SerializeField]
-    private TextMeshProUGUI _Instructions;
+    private GameObject _Instructions;
+    [SerializeField]
+    private Material BloomMaterial;
+    [SerializeField]
+    private bool isMouseOver;
 
     private GameController _gameController;
 
-    public Transform PlayerDirection;
+    private readonly float startThreshold = 0.8f;
+    private readonly float endThreshold = 0.5f;
+    private readonly float amplitude = 0.5f;
+    private readonly float duration = 0.5f;
+    private float timer = 0f;
 
 
     void Start()
     {
         _gameController=GameObject.Find("GameController").GetComponent<GameController>();
+        _Instructions = GameObject.Find("Game Won Instructions");       
     }
-    // Update is called once per frame
-    void FixedUpdate () {
-        // need a variable to hold the location of our Raycast look
-        RaycastHit hit;
-
-        //if raycast hits an object then do somthing....
-        if(Physics.Raycast (this.PlayerDirection.position, this.PlayerDirection.forward, out hit))
+    void OnMouseOver()
+    {
+        isMouseOver=true;
+        _Instructions.SetActive(true);
+    }
+    void OnMouseExit()
+    {
+        isMouseOver=false;
+        _Instructions.SetActive(false);
+    }
+    void OnMouseDown()
+    {
+        _gameController.GameManager.IsGameWon = true;
+    }
+    void Update()
+    {
+        if (isMouseOver)
         {
-            if (hit.transform.gameObject.CompareTag("Car"))
-            {
-                _Instructions.gameObject.SetActive(true);
-            }
-            else
-            {
-                _Instructions.gameObject.SetActive(false);
-            }
-        }
-        if (Input.GetButtonDown("Fire1"))
-        { 
+            timer += Time.deltaTime;
 
-            // if raycast hits an object then do somthing....
-            if(Physics.Raycast (this.PlayerDirection.position,this.PlayerDirection.forward, out hit))
+            float threshold = Mathf.Lerp(startThreshold, endThreshold, Mathf.PingPong(timer, duration) / duration);
+
+            if (BloomMaterial && BloomMaterial.HasProperty("_BloomThreshold"))
             {
-                if (hit.transform.gameObject.CompareTag("Car"))
-                {
-                    _gameController.GameManager.IsGameWon = true;
-                }
+                BloomMaterial.SetFloat("_BloomThreshold", threshold);
             }
         }
-	}
+    }
 }

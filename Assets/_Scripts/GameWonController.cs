@@ -13,6 +13,8 @@ public class GameWonController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
         _gameManager = GameManager.Instance;
         _UserScore.text = _gameManager.UserName + ": " + _gameManager.Score;
     }

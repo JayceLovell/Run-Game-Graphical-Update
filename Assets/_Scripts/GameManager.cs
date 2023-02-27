@@ -5,47 +5,37 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
+    //Debugging Stuff
+    public bool IsDebuging;
+
+    //Regular Code
 
     private static GameManager _instance;  
     private ScoreManager _scoreManager;
-    private string _difficulty;
+    public enum DifficultyLevel
+    {
+        Easy,
+        Normal,
+        Hard
+    }
     private float _bgmVolume;
     private float _sfxVolume;
+    [SerializeField]
     private bool _isGamePaused;
     private bool _isGameLost;
     private bool _isGameWon;
     private string _userName;
     private float _score;
 
-    public static GameManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                DontDestroyOnLoad(GameManager.Instance);
-                Debug.LogError("Game Manager is NULL");
-            }
-            return _instance;
-        }
-    }
+    public static GameManager Instance { get; private set; }
+
     public ScoreManager ScoreManager
     {
         get { return _scoreManager; }
         set { _scoreManager = value; }
     }
-    public string Difficulty
-    {
-        get
-        {
-            return _difficulty;
-        }
+    public DifficultyLevel Difficulty;
 
-        set
-        {
-            _difficulty = value;
-        }
-    }
     public float BGMVolume
     {
         get
@@ -90,7 +80,6 @@ public class GameManager : MonoBehaviour {
         set
         {
             _isGameLost= value;
-            _scoreManager.AddScore(UserName, Score);
             SceneManager.LoadScene("GameOver");
         }
     }
@@ -135,8 +124,14 @@ public class GameManager : MonoBehaviour {
     //Awake is always called before any Start functions
     void Awake()
     {
-        _instance = this;
-        DontDestroyOnLoad(GameManager.Instance);      
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
         _scoreManager = new ScoreManager();
     }
         // Use this for initialization
@@ -146,13 +141,13 @@ public class GameManager : MonoBehaviour {
     }
     private void _LoadPlayerSettings()
     {
-        _difficulty = PlayerPrefs.GetString("Difficulty");
+        Difficulty = (DifficultyLevel)PlayerPrefs.GetInt("Difficulty");
         _bgmVolume = PlayerPrefs.GetFloat("BGM");
         _sfxVolume = PlayerPrefs.GetFloat("SFX");
     }
     private void _savePlayerSettings()
     {
-        PlayerPrefs.SetString("Difficulty", Difficulty);
+        PlayerPrefs.SetInt("Difficulty", (int)Difficulty);
         PlayerPrefs.SetFloat("SFX", SFXVolume);
         PlayerPrefs.SetFloat("BGM", BGMVolume);      
         PlayerPrefs.Save();

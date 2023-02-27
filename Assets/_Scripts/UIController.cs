@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class UIController : MonoBehaviour
         }
         else
         {
-            if (_pauseTitle.activeInHierarchy)
+            if (!_pauseTitle.activeInHierarchy)
             {
                 PauseMenu(true);
             }
@@ -50,8 +51,17 @@ public class UIController : MonoBehaviour
     }
     private void PauseMenu(bool visible)
     {
+        Debug.Log("PauseMenu " + visible);
         _pauseTitle.SetActive(visible);
         _resumeButton.SetActive(visible);
         _backToMainMenu.SetActive(visible);
+    }
+    public void ResumeButton()
+    {
+        GameManager.Instance.IsGamePaused = false;
+    }
+    public void BackToMenuButton()
+    {
+        SceneManager.LoadScene("Title");
     }
 }
