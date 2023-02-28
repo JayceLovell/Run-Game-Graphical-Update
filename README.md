@@ -86,6 +86,8 @@ https://user-images.githubusercontent.com/35810049/221449062-9a721bda-f358-4d89-
  ![vin](https://user-images.githubusercontent.com/35810049/221449114-e5512bc7-f8a7-4f01-9c3b-ba7d042c1cd2.jpg)
  </br>The shader finds the center of the screen and calculates how far each pixel is from the center. Each pixel becomes darker the urther it is away from the center giving the scene a more horror type feel
 
+### References
+[unity documents](https://docs.unity3d.com/Manual/Shaders.html) 
 </details>
  
  
