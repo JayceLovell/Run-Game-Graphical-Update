@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6492387983875997203}
   - component: {fileID: 622951654578243931}
   - component: {fileID: 2714638262936577630}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Breadcumbs
   m_TagString: Untagged
   m_Icon: {fileID: 0}

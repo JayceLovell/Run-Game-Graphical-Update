@@ -6,11 +6,12 @@ using UnityEngine.AI;
 public class SpookBehavior : MonoBehaviour
 {
     private GameController gameController;
-    private Animator animator;
     [SerializeField]
     private NavMeshAgent navMeshAgent;
     [SerializeField]
     private bool isChasing;
+    [SerializeField]
+    private Material GhostMaterial;
     private Transform Player;
     private Vector3 home;
     private Vector3 destination;
@@ -19,27 +20,36 @@ public class SpookBehavior : MonoBehaviour
     private List<Vector3> patrolPoints = new List<Vector3>();
     private int currentPatrolPointIndex;
     private float defaultSpeed;
-    private bool RunningAway;
+    private bool isFleeing;
 
-    public GameObject Face;
     public Shader Specular;
     public Shader Toon;
+    public bool IsFleeing
+    {
+        get { return isFleeing; } 
+        set {  
+            isFleeing = value;
+            if (IsFleeing)
+                GhostMaterial.SetFloat("_RimPower", 8f);
+            else
+                GhostMaterial.SetFloat("_RimPower", 0.5f);
+        }
+    }
     public bool IsChasing
     {
         get { return isChasing; }
         set { 
             isChasing = value;            
-            animator.SetBool("Chasing", value);
 
             if (value)
             {
                 navMeshAgent.speed = navMeshAgent.speed * 2;
-                Face.GetComponent<Renderer>().material.shader = Toon;
+               // Face.GetComponent<Renderer>().material.shader = Toon;
             }
             else
             {
                 navMeshAgent.speed = defaultSpeed;
-                Face.GetComponent<Renderer>().material.shader = Specular;
+               // Face.GetComponent<Renderer>().material.shader = Specular;
             }
         }
     }
@@ -47,12 +57,9 @@ public class SpookBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameController = GameObject.Find("GameController").GetComponent<GameController>();
-        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        animator = GetComponent<Animator>();
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        home = GetComponent<Transform>().position;
-        RunningAway= false;
+        GetComponents();
+
+        isFleeing = false;
 
         switch (GameManager.Instance.Difficulty)
         {
@@ -77,13 +84,23 @@ public class SpookBehavior : MonoBehaviour
         // Generate a list of patrol points around the home position
         for (int i = 0; i < 10; i++)
         {
-            Vector3 randomDirection = Random.insideUnitSphere * (patrolRadius*2);
+            Vector3 randomDirection = Random.insideUnitSphere * (patrolRadius * 2);
             randomDirection += home;
             NavMeshHit hit;
             NavMesh.SamplePosition(randomDirection, out hit, patrolRadius, 1);
             patrolPoints.Add(hit.position);
         }
         Patrol();
+    }
+
+    private void GetComponents()
+    {
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        home = GetComponent<Transform>().position;
+        Renderer renderer = gameObject.GetComponentInChildren<Renderer>();
+        GhostMaterial = renderer.material;
     }
 
     // Update is called once per frame
@@ -97,7 +114,7 @@ public class SpookBehavior : MonoBehaviour
             //Check if player is close
             distanceToTarget = Vector3.Distance(transform.position, Player.position);
 
-            if ((distanceToTarget < patrolRadius || isChasing) && !RunningAway)
+            if ((distanceToTarget < patrolRadius || isChasing) && !isFleeing)
                 Chase();
             else if (navMeshAgent.remainingDistance < 1f && !IsChasing)
             {
@@ -137,7 +154,7 @@ public class SpookBehavior : MonoBehaviour
         {
             isChasing = false;
             navMeshAgent.SetDestination(home);
-            RunningAway = true;
+            isFleeing = true;
         }
         else if (other.tag == "Player")
         {
@@ -152,10 +169,8 @@ public class SpookBehavior : MonoBehaviour
         currentPatrolPointIndex = Random.Range(0, patrolPoints.Count);
         navMeshAgent.SetDestination(patrolPoints[currentPatrolPointIndex]);
 
-        // Reset the animator
-        animator.SetBool("Chasing", false);
         IsChasing = false;
         navMeshAgent.isStopped = false;
-        RunningAway= false;
+        isFleeing= false;
     }
 }
