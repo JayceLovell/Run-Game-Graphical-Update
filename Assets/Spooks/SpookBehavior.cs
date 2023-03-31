@@ -47,12 +47,12 @@ public class SpookBehavior : MonoBehaviour
             if (value)
             {
                 navMeshAgent.speed = navMeshAgent.speed * 2;
-               GetComponent<Renderer>().material.shader = Toon;
+                GhostMaterial.shader = Toon;
             }
             else
             {
                 navMeshAgent.speed = defaultSpeed;
-               GetComponent<Renderer>().material.shader = Hologram;
+                GhostMaterial.shader = Hologram;
             }
         }
     }
