@@ -84,9 +84,13 @@ public class UIController : MonoBehaviour
     public void ResumeButton()
     {
         GameManager.Instance.IsGamePaused = false;
+        //lock cursor to screen
+        Cursor.lockState = CursorLockMode.Locked;
     }
     public void BackToMenuButton()
     {
+        //unlock cursor to screen
+        Cursor.lockState = CursorLockMode.Confined;
         GameManager.Instance.IsGamePaused=false;
         SceneManager.LoadScene("Title");
     }

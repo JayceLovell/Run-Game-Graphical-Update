@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -34,17 +35,23 @@ public class PlayerController : MonoBehaviour
 
     [Header("Flash Light Stuff")]
     public bool lightFlickerStarted;
-    public bool isFlashLightOn;
+    [SerializeField]
+    private bool isFlashLightOn;
     public Light SpotLight;
     public Light AboveLight;
     public GameObject Window;
-    public AudioSource FlickerLight;
 
 
     public bool IsFlashLightOn
     {
-        get;
-        private set;
+        get
+        {
+            return isFlashLightOn;
+        }
+        set
+        {
+            isFlashLightOn = value;
+        }
     }
 
 
@@ -133,27 +140,30 @@ public class PlayerController : MonoBehaviour
             IsFlashLightOn = true;
         }
     }
+    /// <summary>
+    /// Looking through wall ability
+    /// </summary>
     private void Peek()
     {
         if (Window.activeInHierarchy)
         {
-            Window.SetActive (false);
+            Window.SetActive(false);
             gameController.BatteryDischargeRate /= 5;
-            GameObject.Find("BgSound").GetComponent<SoundBGVolume>().LowerVolume(1f, 0.1f);
-            SoundManager.PlaySound(SoundManager.SoundFX.SeeThroughMode);
-            SwitchLut ();
+            SoundManager.PlaySound(SoundManager.SoundFX.ExitSeeThroughMode);
+            GameObject.Find("BgSound").GetComponent<SoundBGVolume>().RaiseVolume(3f);
+            SwitchLut();
         }
         else
         {
-            Window.SetActive (true);
+            // Activate window and modify game state
+            Window.SetActive(true);
             gameController.BatteryDischargeRate *= 5;
-            SwitchLut ();
-            SoundManager.PlaySound(SoundManager.SoundFX.ExitSeeThroughMode);
-
-            GameObject bgSound = GameObject.Find("BgSound");
-            bgSound.GetComponent<SoundBGVolume>().LowerVolume(1f, 0.1f);
-        }    
+            SoundManager.PlaySound(SoundManager.SoundFX.SeeThroughMode);
+            GameObject.Find("BgSound").GetComponent<SoundBGVolume>().LowerVolume(1f, 0.1f);
+            SwitchLut();
+        }                  
     }
+
     private void ReChargeBattery()
     {
         if (GameManager.Instance.IsDebuging)
@@ -203,13 +213,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.Instance.IsGamePaused)
+        if (!GameManager.Instance.IsGamePaused && !gameController.IsGameOver)
         {
             if (isFlashLightOn)
                 gameController.BatteryCharge -= gameController.BatteryDischargeRate;
 
             if (gameController.BatteryCharge < 40.0 && gameController.BatteryCharge > 0.01 && !lightFlickerStarted)
-                StartCoroutine(Fliker());
+                StartCoroutine(Flickr());
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position, Vector3.down, out hit))
@@ -229,7 +239,7 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (!GameManager.Instance.IsGamePaused)
+        if (!GameManager.Instance.IsGamePaused && !gameController.IsGameOver)
         {
             cameraRotation = new Vector3(cameraRotation.x + rotate.y, cameraRotation.y + rotate.x, cameraRotation.z);
 
@@ -247,17 +257,20 @@ public class PlayerController : MonoBehaviour
     /// Makes Flashlight flicker to indicate low battery
     /// </summary>
     /// <returns></returns>
-    private IEnumerator Fliker()
-    {
-        lightFlickerStarted = true;
-        yield return new WaitForSeconds(0.7f);
+    private IEnumerator Flickr()
+    {        
+            lightFlickerStarted = true;
+            yield return new WaitForSeconds(0.7f);
 
-        SpotLight.intensity = 0;
-        SoundManager.PlaySound(SoundManager.SoundFX.FlickrLight);
+        if (isFlashLightOn)
+        {
+            SpotLight.intensity = 0;
+            SoundManager.PlaySound(SoundManager.SoundFX.FlickrLight);
 
-        yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.7f);
 
-        SpotLight.intensity = 4;
-        lightFlickerStarted = false;
+            SpotLight.intensity = 4;
+        }
+            lightFlickerStarted = false;
     }
 }

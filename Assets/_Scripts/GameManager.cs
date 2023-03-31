@@ -81,7 +81,8 @@ public class GameManager : MonoBehaviour {
         set
         {
             _isGameLost= value;
-            SceneManager.LoadScene("GameOver");
+            if(value)
+                SceneManager.LoadScene("GameOver");
         }
     }
     public bool IsGameWon
@@ -90,8 +91,11 @@ public class GameManager : MonoBehaviour {
         set
         {
             _isGamePaused = value;
-            _scoreManager.AddScore(UserName, Score);
-            SceneManager.LoadScene("GameWon");
+            if (value)
+            {
+                _scoreManager.AddScore(UserName, Score);
+                SceneManager.LoadScene("GameWon");
+            }
         }
     }
     /// <summary>
@@ -122,6 +126,10 @@ public class GameManager : MonoBehaviour {
         {
             _score = value;
         }
+    }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
     //Awake is always called before any Start functions
     void Awake()
@@ -156,5 +164,22 @@ public class GameManager : MonoBehaviour {
         SavePlayerData();
         _scoreManager.SaveScores();
         Application.Quit();
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Check if the player has returned to the title scene
+        if (scene.name == "Title")
+        {
+            Debug.Log("Resetting");
+            IsGameLost = false;
+            IsGamePaused = false;
+            IsGameWon = false;
+            Score = 0;
+            UserName = null;
+        }
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

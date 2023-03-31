@@ -7,6 +7,7 @@ using System;
 
 public class GameController : MonoBehaviour {
     private float _gameTime;
+    private bool _isGameOver;
     private float _batteryCharge;
     private GameObject _respawnPoint;
     [SerializeField]
@@ -22,7 +23,10 @@ public class GameController : MonoBehaviour {
     public GameObject TestPlayer;
 
 
-  
+    public bool IsGameOver
+    {
+        get { return _isGameOver; }
+    }
     public float GameTime
     {
         get
@@ -55,7 +59,10 @@ public class GameController : MonoBehaviour {
         {
             this._batteryCharge = value;
             if (_batteryCharge <= 0.00f)
-                StartCoroutine(GameOver());                
+            {
+                _isGameOver = true;
+                StartCoroutine(GameOver());
+            }
         }
     }
 
@@ -93,7 +100,7 @@ public class GameController : MonoBehaviour {
             return;
         else
         {
-            if (!GameManager.Instance.IsGamePaused)
+            if (!GameManager.Instance.IsGamePaused && !_isGameOver)
             {
                 _gameTime += Time.deltaTime;
                 BatteryCharge -= _batteryDischargeRate;

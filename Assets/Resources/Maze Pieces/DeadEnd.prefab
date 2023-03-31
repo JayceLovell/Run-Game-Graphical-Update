@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9085405648089171418}
   m_Layer: 0
   m_Name: DeadEnd
-  m_TagString: Untagged
+  m_TagString: MazePiece
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
