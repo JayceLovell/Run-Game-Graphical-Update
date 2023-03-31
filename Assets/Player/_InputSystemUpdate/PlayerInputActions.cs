@@ -98,6 +98,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Peek"",
+                    ""type"": ""Button"",
+                    ""id"": ""e138f6e4-f9e6-48a0-ba70-8a5dc6b3ca9a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -247,7 +256,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""181cec02-89d7-41cc-af6c-206d4e5b25cc"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -298,6 +307,28 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cea7d0ad-d205-4db1-9406-1955b2c8bd74"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Peek"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dde9581a-74a2-49ce-96fd-7e1f033bf206"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Peek"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -320,6 +351,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_ReChargeBattery = m_Player.FindAction("ReChargeBattery", throwIfNotFound: true);
         m_Player_SwitchLut = m_Player.FindAction("SwitchLut", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_Peek = m_Player.FindAction("Peek", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
     }
@@ -389,6 +421,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ReChargeBattery;
     private readonly InputAction m_Player_SwitchLut;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_Peek;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -401,6 +434,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @ReChargeBattery => m_Wrapper.m_Player_ReChargeBattery;
         public InputAction @SwitchLut => m_Wrapper.m_Player_SwitchLut;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @Peek => m_Wrapper.m_Player_Peek;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -434,6 +468,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Peek.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPeek;
+                @Peek.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPeek;
+                @Peek.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPeek;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -462,6 +499,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Peek.started += instance.OnPeek;
+                @Peek.performed += instance.OnPeek;
+                @Peek.canceled += instance.OnPeek;
             }
         }
     }
@@ -501,6 +541,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnReChargeBattery(InputAction.CallbackContext context);
         void OnSwitchLut(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnPeek(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     public bool isFlashLightOn;
     public Light SpotLight;
     public Light AboveLight;
+    public GameObject Window;
     public AudioSource FlickerLight;
 
 
@@ -86,6 +87,8 @@ public class PlayerController : MonoBehaviour
 
         inputAction.Player.FlashlightToggle.performed += cntxt => FlashLightToggle();
 
+        inputAction.Player.Peek.performed += cntxt => Peek();
+
         inputAction.Player.ReChargeBattery.performed += cntxt => ReChargeBattery();
 
         inputAction.Player.SwitchLut.performed += cntxt => SwitchLut();
@@ -105,6 +108,8 @@ public class PlayerController : MonoBehaviour
         SwitchLut();
 
         nextBreadCrumb = 5.0f;
+
+        Window.SetActive(false);
 
     }
 
@@ -127,6 +132,21 @@ public class PlayerController : MonoBehaviour
             MiniMap.color = new Color(1, 1, 1, 1);
             IsFlashLightOn = true;
         }
+    }
+    private void Peek()
+    {
+        if (Window.activeInHierarchy)
+        {
+            Window.SetActive (false);
+            gameController.BatteryDischargeRate /= 5;
+            SwitchLut ();
+        }
+        else
+        {
+            Window.SetActive (true);
+            gameController.BatteryDischargeRate *= 5;
+            SwitchLut ();
+        }    
     }
     private void ReChargeBattery()
     {
@@ -221,7 +241,7 @@ public class PlayerController : MonoBehaviour
     /// Makes Flashlight flicker to indicate low battery
     /// </summary>
     /// <returns></returns>
-    IEnumerator Fliker()
+    private IEnumerator Fliker()
     {
         lightFlickerStarted = true;
         yield return new WaitForSeconds(0.7f);

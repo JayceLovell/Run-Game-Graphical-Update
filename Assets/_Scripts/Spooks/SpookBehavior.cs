@@ -32,10 +32,14 @@ public class SpookBehavior : MonoBehaviour
             if (IsFleeing)
             {
                 GhostMaterial.shader = Hologram;
+                navMeshAgent.speed = navMeshAgent.speed * 5;
                 GhostMaterial.SetFloat("_RimPower", 8f);
             }
             else
+            {
+                navMeshAgent.speed = defaultSpeed;
                 GhostMaterial.SetFloat("_RimPower", 0.5f);
+            }
         }
     }
     public bool IsChasing

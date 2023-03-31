@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
     private float _gameTime;
     private float _batteryCharge;
     private GameObject _respawnPoint;
+    [SerializeField]
     private float _batteryDischargeRate;
     private List<Transform> _BatteryPositions;
     
@@ -42,6 +43,10 @@ public class GameController : MonoBehaviour {
         get
         {
             return this._batteryDischargeRate;
+        }
+        set
+        {
+            this._batteryDischargeRate = value;
         }
     }
     public float BatteryCharge
@@ -80,7 +85,11 @@ public class GameController : MonoBehaviour {
         }
         else
         {
-            Instantiate(Player, GameObject.FindGameObjectWithTag("Respawn").transform);
+            Instantiate(Player, 
+                GameObject.FindGameObjectWithTag("Respawn").transform.position,
+                Quaternion.Euler(0, 90, 0),
+                null
+                );
         }
     }
     
