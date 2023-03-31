@@ -31,7 +31,7 @@ public class SpookBehavior : MonoBehaviour
             isFleeing = value;
             if (IsFleeing)
             {
-                GetComponent<Renderer>().material.shader = Hologram;
+                GhostMaterial.shader = Hologram;
                 GhostMaterial.SetFloat("_RimPower", 8f);
             }
             else
@@ -42,7 +42,7 @@ public class SpookBehavior : MonoBehaviour
     {
         get { return isChasing; }
         set { 
-            isChasing = value;            
+            isChasing = value;
 
             if (value)
             {
