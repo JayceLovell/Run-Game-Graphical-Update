@@ -22,7 +22,7 @@ public class SpookBehavior : MonoBehaviour
     private float defaultSpeed;
     private bool isFleeing;
 
-    public Shader Specular;
+    public Shader Hologram;
     public Shader Toon;
     public bool IsFleeing
     {
@@ -30,7 +30,10 @@ public class SpookBehavior : MonoBehaviour
         set {  
             isFleeing = value;
             if (IsFleeing)
+            {
+                GetComponent<Renderer>().material.shader = Hologram;
                 GhostMaterial.SetFloat("_RimPower", 8f);
+            }
             else
                 GhostMaterial.SetFloat("_RimPower", 0.5f);
         }
@@ -44,12 +47,12 @@ public class SpookBehavior : MonoBehaviour
             if (value)
             {
                 navMeshAgent.speed = navMeshAgent.speed * 2;
-               // Face.GetComponent<Renderer>().material.shader = Toon;
+               GetComponent<Renderer>().material.shader = Toon;
             }
             else
             {
                 navMeshAgent.speed = defaultSpeed;
-               // Face.GetComponent<Renderer>().material.shader = Specular;
+               GetComponent<Renderer>().material.shader = Hologram;
             }
         }
     }
