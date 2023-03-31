@@ -288,6 +288,17 @@
                 },
                 {
                     "name": "",
+                    "id": "630833c7-3d22-4bcc-a25a-b52724e64442",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "cea7d0ad-d205-4db1-9406-1955b2c8bd74",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",

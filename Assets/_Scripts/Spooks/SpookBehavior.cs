@@ -165,6 +165,7 @@ public class SpookBehavior : MonoBehaviour
         }
         else if (other.tag == "Player")
         {
+            SoundManager.PlaySound(SoundManager.SoundFX.EvilLaugh);
             isChasing = false;
             other.transform.position = GameObject.FindGameObjectWithTag("Respawn").transform.position;
             navMeshAgent.SetDestination(home);

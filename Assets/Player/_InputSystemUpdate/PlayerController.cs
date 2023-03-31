@@ -139,6 +139,8 @@ public class PlayerController : MonoBehaviour
         {
             Window.SetActive (false);
             gameController.BatteryDischargeRate /= 5;
+            GameObject.Find("BgSound").GetComponent<SoundBGVolume>().LowerVolume(1f, 0.1f);
+            SoundManager.PlaySound(SoundManager.SoundFX.SeeThroughMode);
             SwitchLut ();
         }
         else
@@ -146,6 +148,10 @@ public class PlayerController : MonoBehaviour
             Window.SetActive (true);
             gameController.BatteryDischargeRate *= 5;
             SwitchLut ();
+            SoundManager.PlaySound(SoundManager.SoundFX.ExitSeeThroughMode);
+
+            GameObject bgSound = GameObject.Find("BgSound");
+            bgSound.GetComponent<SoundBGVolume>().LowerVolume(1f, 0.1f);
         }    
     }
     private void ReChargeBattery()
@@ -197,12 +203,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameController.GameManager.IsGamePaused)
+        if (!GameManager.Instance.IsGamePaused)
         {
             if (isFlashLightOn)
                 gameController.BatteryCharge -= gameController.BatteryDischargeRate;
 
-            if (gameController.BatteryCharge < 0.40 && gameController.BatteryCharge > 0.01 && !lightFlickerStarted)
+            if (gameController.BatteryCharge < 40.0 && gameController.BatteryCharge > 0.01 && !lightFlickerStarted)
                 StartCoroutine(Fliker());
 
             RaycastHit hit;
@@ -223,7 +229,7 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (!gameController.GameManager.IsGamePaused)
+        if (!GameManager.Instance.IsGamePaused)
         {
             cameraRotation = new Vector3(cameraRotation.x + rotate.y, cameraRotation.y + rotate.x, cameraRotation.z);
 
@@ -247,7 +253,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
 
         SpotLight.intensity = 0;
-        //FlickerLight.Play();
+        SoundManager.PlaySound(SoundManager.SoundFX.FlickrLight);
 
         yield return new WaitForSeconds(0.7f);
 

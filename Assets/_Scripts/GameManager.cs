@@ -40,24 +40,25 @@ public class GameManager : MonoBehaviour {
     {
         get
         {         
-            return (_bgmVolume / 100);
+            return (_bgmVolume);
         }
         set
         {
-            _bgmVolume = value;           
+            _bgmVolume = value;
+            SoundManager.MasterVolumeChanged(value);
+            PlayerData.BGMVolume = value;
         }
     }
     public float SFXVolume
     {
         get
         {            
-            return (_sfxVolume / 100);
+            return (_sfxVolume);
         }
         set
         {
             _sfxVolume = value;
-            PlayerPrefs.SetFloat("SFX", value);
-            PlayerPrefs.Save();
+            PlayerData.SFXVolume=value;
         }
     }
     public bool IsGamePaused
@@ -105,6 +106,7 @@ public class GameManager : MonoBehaviour {
         set
         {
             _userName = value;
+            PlayerData.UserName = value;
         }
     }
     /// <summary>
@@ -133,28 +135,25 @@ public class GameManager : MonoBehaviour {
         Instance = this;
         DontDestroyOnLoad(gameObject);
         _scoreManager = new ScoreManager();
+        LoadPlayerData();
     }
         // Use this for initialization
     void Start () {
-        _LoadPlayerSettings();
         _scoreManager.LoadScores();
     }
-    private void _LoadPlayerSettings()
+    private void LoadPlayerData()
     {
-        Difficulty = (DifficultyLevel)PlayerPrefs.GetInt("Difficulty");
-        _bgmVolume = PlayerPrefs.GetFloat("BGM");
-        _sfxVolume = PlayerPrefs.GetFloat("SFX");
+        _bgmVolume  = PlayerData.BGMVolume;
+        _sfxVolume = PlayerData.SFXVolume;
+        _userName = PlayerData.UserName;        
     }
-    private void _savePlayerSettings()
+    private void SavePlayerData()
     {
-        PlayerPrefs.SetInt("Difficulty", (int)Difficulty);
-        PlayerPrefs.SetFloat("SFX", SFXVolume);
-        PlayerPrefs.SetFloat("BGM", BGMVolume);      
-        PlayerPrefs.Save();
+        PlayerData.Save();
     }
     public void Quit()
     {
-        _savePlayerSettings();
+        SavePlayerData();
         _scoreManager.SaveScores();
         Application.Quit();
     }

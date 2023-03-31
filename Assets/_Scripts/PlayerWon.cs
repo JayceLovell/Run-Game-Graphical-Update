@@ -39,7 +39,7 @@ public class PlayerWon : MonoBehaviour {
     }
     void OnMouseDown()
     {
-        _gameController.GameManager.IsGameWon = true;
+        GameManager.Instance.IsGameWon = true;
     }
     void Update()
     {
