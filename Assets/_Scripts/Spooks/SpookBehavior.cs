@@ -171,6 +171,46 @@ public class SpookBehavior : MonoBehaviour
             navMeshAgent.SetDestination(home);
         }
     }
+    /// <summary>
+    /// must flee
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "FlashLight")
+        {
+            isChasing = false;
+            navMeshAgent.SetDestination(home);
+            isFleeing = true;
+        }
+        else if (other.tag == "Player")
+        {
+            SoundManager.PlaySound(SoundManager.SoundFX.EvilLaugh);
+            isChasing = false;
+            other.transform.position = GameObject.FindGameObjectWithTag("Respawn").transform.position;
+            navMeshAgent.SetDestination(home);
+        }
+    }
+    /// <summary>
+    /// make sure it flees
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "FlashLight")
+        {
+            isChasing = false;
+            navMeshAgent.SetDestination(home);
+            isFleeing = true;
+        }
+        else if (other.tag == "Player")
+        {
+            SoundManager.PlaySound(SoundManager.SoundFX.EvilLaugh);
+            isChasing = false;
+            other.transform.position = GameObject.FindGameObjectWithTag("Respawn").transform.position;
+            navMeshAgent.SetDestination(home);
+        }
+    }
 
     private void Patrol()
     {

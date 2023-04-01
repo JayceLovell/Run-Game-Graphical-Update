@@ -48,7 +48,7 @@ public class SoundBGVolume : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             audioSource.volume = Mathf.Lerp(startVolume, GameManager.Instance.BGMVolume, elapsedTime / duration);
-            yield return null;
+            yield return new WaitForSeconds(duration);
         }
 
         audioSource.volume = GameManager.Instance.BGMVolume;
