@@ -105,7 +105,10 @@ public class GameManager : MonoBehaviour {
     {
         get
         {
-            return _userName;
+            if(_userName == null)
+                return PlayerData.UserName;
+            else
+                return _userName;
         }
         set
         {
@@ -147,13 +150,13 @@ public class GameManager : MonoBehaviour {
     }
         // Use this for initialization
     void Start () {
-        _scoreManager.LoadScores();
+        _scoreManager.LoadScores();        
     }
     private void LoadPlayerData()
     {
         _bgmVolume  = PlayerData.BGMVolume;
         _sfxVolume = PlayerData.SFXVolume;
-        _userName = PlayerData.UserName;        
+        UserName = PlayerData.UserName;        
     }
     private void SavePlayerData()
     {
