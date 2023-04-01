@@ -19,7 +19,11 @@ public class PlayerData
     public static string UserName
     {        
         get { return PlayerPrefs.GetString("UserName", "Runner"); }
-        set { PlayerPrefs.SetString("UserName", value); }
+        set { 
+            if(value == "" || value== null)
+                PlayerPrefs.SetString("UserName", "Runner");
+            else
+                PlayerPrefs.SetString("UserName", value); }
     }    
 
     public static void Save()

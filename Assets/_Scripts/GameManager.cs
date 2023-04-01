@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour {
     {
         get
         {
-            if(_userName == null)
+            if(_userName == null || _userName == "")
                 return PlayerData.UserName;
             else
                 return _userName;
