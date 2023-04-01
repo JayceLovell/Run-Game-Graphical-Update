@@ -34,7 +34,14 @@ public class PlayerController : MonoBehaviour
     public Vector3 lastBreadCrumbPos;
 
     [Header("Flash Light Stuff")]
-    public bool lightFlickerStarted;
+    [SerializeField]
+    private GameObject FLashLight;   
+    public Color BatteryFull;
+    public Color BatteryEmpty;
+    public Color BatteryInPeekMode;
+    private Color CurrentColor;
+    [SerializeField]
+    private bool lightFlickerStarted;
     [SerializeField]
     private bool isFlashLightOn;
     public Light SpotLight;
@@ -152,6 +159,7 @@ public class PlayerController : MonoBehaviour
             SoundManager.PlaySound(SoundManager.SoundFX.ExitSeeThroughMode);
             GameObject.Find("BgSound").GetComponent<SoundBGVolume>().RaiseVolume(0.1f);
             SwitchLut();
+            FLashLight.GetComponent<Renderer>().material.SetFloat("_Outline", 0.10f);
         }
         else
         {
@@ -161,6 +169,7 @@ public class PlayerController : MonoBehaviour
             SoundManager.PlaySound(SoundManager.SoundFX.SeeThroughMode);
             GameObject.Find("BgSound").GetComponent<SoundBGVolume>().LowerVolume(1f, 0.1f);
             SwitchLut();
+            FLashLight.GetComponent<Renderer>().material.SetFloat("_Outline", 0.50f);
         }                  
     }
 
@@ -219,7 +228,17 @@ public class PlayerController : MonoBehaviour
         if (!GameManager.Instance.IsGamePaused && !gameController.IsGameOver)
         {
             if (isFlashLightOn)
+            {
                 gameController.BatteryCharge -= gameController.BatteryDischargeRate;
+                // Calculate the battery level as a percentage
+                float batteryLevel = gameController.BatteryCharge / 100.0f;
+
+                // Interpolate between the BatteryFull and BatteryEmpty colors based on the battery level
+                CurrentColor = Color.Lerp(BatteryEmpty, BatteryFull, batteryLevel);
+
+                FLashLight.GetComponent<Renderer>().material.SetColor("_OutlineColor", CurrentColor);
+
+            }
 
             if (gameController.BatteryCharge < 40.0 && gameController.BatteryCharge > 0.01 && !lightFlickerStarted)
                 StartCoroutine(Flickr());

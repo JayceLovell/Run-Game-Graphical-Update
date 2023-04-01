@@ -5,7 +5,7 @@ Shader "Custom/outlineBump"
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _BumpMap ("Bump Map", 2D) = "bump" {}
         _OutlineColor ("Outline Color", Color) = (0,0,0,1)
-        _Outline ("Outline Width", Range (.0002,0.1)) = .0005
+        _Outline ("Outline Width", Range (.0002,0.50)) = .0005
     }
     SubShader
     {
