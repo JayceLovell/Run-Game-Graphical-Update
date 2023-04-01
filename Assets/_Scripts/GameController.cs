@@ -170,7 +170,7 @@ public class GameController : MonoBehaviour {
     private IEnumerator GameOver()
     {
         SoundManager.PlaySound(SoundManager.SoundFX.LightLightGoesOut);
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(3f);
         GameManager.Instance.IsGameLost = true;
     }
 

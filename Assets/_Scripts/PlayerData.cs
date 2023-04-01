@@ -17,7 +17,7 @@ public class PlayerData
     }
 
     public static string UserName
-    {
+    {        
         get { return PlayerPrefs.GetString("UserName", "Runner"); }
         set { PlayerPrefs.SetString("UserName", value); }
     }    

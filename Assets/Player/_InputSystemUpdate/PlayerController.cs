@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
             Window.SetActive(false);
             gameController.BatteryDischargeRate /= 5;
             SoundManager.PlaySound(SoundManager.SoundFX.ExitSeeThroughMode);
-            GameObject.Find("BgSound").GetComponent<SoundBGVolume>().RaiseVolume(3f);
+            GameObject.Find("BgSound").GetComponent<SoundBGVolume>().RaiseVolume(0.1f);
             SwitchLut();
         }
         else
@@ -164,6 +164,9 @@ public class PlayerController : MonoBehaviour
         }                  
     }
 
+    /// <summary>
+    /// little cheat
+    /// </summary>
     private void ReChargeBattery()
     {
         if (GameManager.Instance.IsDebuging)
@@ -260,14 +263,13 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Flickr()
     {        
             lightFlickerStarted = true;
-            yield return new WaitForSeconds(0.7f);
 
         if (isFlashLightOn)
         {
             SpotLight.intensity = 0;
             SoundManager.PlaySound(SoundManager.SoundFX.FlickrLight);
 
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(1.5f);
 
             SpotLight.intensity = 4;
         }

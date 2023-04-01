@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8827829414111076463}
   - component: {fileID: 8827829414111076456}
+  - component: {fileID: 4798946196378397369}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -44,8 +45,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd765d1c68ef1943b9be7a6bcb623be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _batteryDischargeRate: 0
   Spooks: []
   Batteries: []
-  Spook: {fileID: 1000010738079766, guid: 5279cc3c42d6c254fb63507c929d878c, type: 3}
+  Spook: {fileID: 5039827238492138756, guid: 5279cc3c42d6c254fb63507c929d878c, type: 3}
   Battery: {fileID: 168528, guid: 9e449e64357fb4e4b8f6a73b40377ca8, type: 3}
   Player: {fileID: 2424188813851756343, guid: 492132d7f9fee284e926d91c84411d4e, type: 3}
+  TestPlayer: {fileID: 5857929443148388661, guid: ada7d36a88b94494eba1e99b18fb90bd,
+    type: 3}
+--- !u!114 &4798946196378397369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827829414111076457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 002449b29e631fe498249147c3d1b3de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
