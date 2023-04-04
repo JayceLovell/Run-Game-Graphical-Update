@@ -1,59 +1,77 @@
+// Defines the shader and its name
 Shader "Custom/WindowWithOutline"
 {
-    // Define editable properties for this shader in the Unity Editor
+    // Defines the properties that can be edited in the inspector
     Properties
     {
-        _MainTex ("Diffuse", 2D) = "white" {}        // Window texture
-        _OutlineColor ("Outline Color", Color) = (0,0,0,1)    // Outline color
-        _Outline ("Outline Width", Range (.0002,0.1)) = .0005    // Outline width
+        // The main texture of the material, a 2D image
+        _MainTex ("Diffuse", 2D) = "white" {}
+
+        // The color of the outline, a Color value
+        _OutlineColor ("Outline Color", Color) = (0,0,0,1)
+
+        // The width of the outline, a float value between 0.0002 and 0.1
+        _Outline ("Outline Width", Range (.0002,0.1)) = .0005
     }
 
-    // Define the rendering code for this shader
+    // Defines the rendering settings for the material
     SubShader
     {
-        // Set the rendering order for this shader
+        // Defines the rendering queue for the material
         Tags { "Queue" = "Geometry-1" }
 
-        // Disable color writes and depth buffer writes for this shader
+        // Disables color writing
         ColorMask 0
+
+        // Disables writing to the depth buffer
         ZWrite off
 
-        // Set up the stencil buffer to replace any existing value with 1
+        // Sets up a stencil operation for the outline
         Stencil{
+            // Sets the reference value to 1
             Ref 1
+            // Compares always to the stencil buffer
             Comp always
+            // Replaces the value in the stencil buffer
             Pass replace
         }
 
-        // Define the actual shader code using the CG programming language
+        // The main shader code
         CGPROGRAM
-        #pragma surface surf Lambert vertex:vert    // Set the shader model and vertex function
 
-        // Define shader variables
-        sampler2D _MainTex;        // Window texture variable
-        float _Outline;        // Outline width variable
-        float4 _OutlineColor;        // Outline color variable
+        // Uses the surface shader model with the Lambert lighting model
+        #pragma surface surf Lambert vertex:vert
 
-        // Define the input struct that holds the UV coordinates for the texture
+        // Declares the properties used in the shader
+        sampler2D _MainTex;     // The main texture
+        float _Outline;         // The width of the outline
+        float4 _OutlineColor;   // The color of the outline
+
+        // Defines the input structure for the vertex and surface shaders
         struct Input{
-            float2 uv_MainTex;
+            float2 uv_MainTex;  // The UV coordinates for the main texture
         };
 
-        // Define the vertex function that offsets the vertex position to create the outline
+        // The vertex shader, which offsets the vertices by the outline width
         void vert (inout appdata_full v){
             v.vertex.xyz += v.normal * _Outline;
         }
 
-        // Define the surface function that samples the texture and sets the output colors
+        // The surface shader, which sets the color of the material
         void surf(Input IN, inout SurfaceOutput o){
-            fixed4 c = tex2D(_MainTex, IN.uv_MainTex);    // Sample the texture at the current UV coordinates
-            o.Albedo = c.rgb;    // Set the output Albedo color to the sampled color
-            o.Emission = _OutlineColor.rgb;    // Set the output Emission color to the outline color
+            // Samples the main texture
+            fixed4 c = tex2D(_MainTex, IN.uv_MainTex);
+            // Sets the material's albedo color to the main texture color
+            o.Albedo = c.rgb;
+            // Sets the material's emission color to the outline color
+            o.Emission = _OutlineColor.rgb;
         }
+
+        // Ends the CGPROGRAM section
         ENDCG
 
     }
 
-    // Define a fallback shader to use if this custom shader fails to compile or run
+    // The fallback shader to use if the main shader is not supported
     FallBack "Diffuse"
 }
