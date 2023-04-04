@@ -90,7 +90,7 @@ https://user-images.githubusercontent.com/35810049/221449062-9a721bda-f358-4d89-
 [unity documents](https://docs.unity3d.com/Manual/Shaders.html) 
 </details>
  
- # Final Project
+ # Final Project Update
   <details><summary>DETAILS HERE</summary>
  
 ### Presentaion Slides:
@@ -98,6 +98,32 @@ https://user-images.githubusercontent.com/35810049/221449062-9a721bda-f358-4d89-
 ### Team Contributions:
  
 ### Final Updates
+#### Basic Texturing
+ ##### Simple Specular
+ ![Screenshot 2023-02-26 162345](https://user-images.githubusercontent.com/35810049/221447313-7ad7ea6f-3f9c-42cf-aab1-11f369319c80.png)
+ 
+ ##### Normal Mapping
+ ![walls](https://user-images.githubusercontent.com/35810049/221447683-ae436a14-b412-4746-83cb-73774f9c3c7f.png) </br>
+ For the normal map shader on the walls and platform ground is creates an illusion of surface details by altering the surface normal using a normal map texture. Which encodes the direction of the surface normal in rgb color values.
+
+#### Post Processing Color Correction
+For an update from the group assignment we used the black and white LUT as a game addition. When the player goes into peek mode which basically gives them the ability to see through the entire maze, it uses the black and white LUT to give the effect that the players view is changed and also fits the theme of the game more.
+![window](https://user-images.githubusercontent.com/35810049/229875694-d6c9810d-8a0c-47ce-8779-5990c57f139b.png)
+
+#### Visual Effects
+For some of the visual effects we have our particles effect when a battery is collected, decals for bread crumbs and rim lighting on battery.
+Particle Effect - Battery Erosion </br>
+https://user-images.githubusercontent.com/35810049/221447954-21bfee06-2fde-4134-b130-a1d34518e2bd.mp4
+</br>The particle effect implemented is an erosion type effect custom shader which is used in conjunction with the unity particle system. The effect plays after the player collects a battery.
+
+#### Decal
+![image5](https://user-images.githubusercontent.com/35810049/221448316-848d7cf0-b2b6-4c36-8921-3fbc228ac153.jpg)</br>
+https://user-images.githubusercontent.com/35810049/221448448-2749532d-8283-4863-8adc-870569b72b82.mp4
+</br>We added a breadcrumb decal system in the gaame so the player knows where that have travelled before in the maze
+
+#### Additional Effects
+
+#### Additional Post Processing Effect
  
  </details>
  
