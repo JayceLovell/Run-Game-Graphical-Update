@@ -102,7 +102,8 @@ https://user-images.githubusercontent.com/35810049/221449062-9a721bda-f358-4d89-
 https://www.youtube.com/watch?v=aYY3ExYlNtU&ab_channel=JayceLovell
  
 ### Team Contribution Report:
- 
+ [Run Game Graphical Update Documentation.pdf](https://github.com/JayceLovell/Run-Game-Graphical-Update/files/11153783/Run.Game.Graphical.Update.Documentation.pdf)
+
 ### Final Updates
 #### Basic Texturing
  ##### Simple Specular
