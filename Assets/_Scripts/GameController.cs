@@ -3,12 +3,14 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class GameController : MonoBehaviour {
-    private GameManager _gameManager;
     private float _gameTime;
+    private bool _isGameOver;
     private float _batteryCharge;
     private GameObject _respawnPoint;
+    [SerializeField]
     private float _batteryDischargeRate;
     private List<Transform> _BatteryPositions;
     
@@ -20,12 +22,11 @@ public class GameController : MonoBehaviour {
     public GameObject Player;
     public GameObject TestPlayer;
 
-    public GameManager GameManager
+
+    public bool IsGameOver
     {
-        get { return _gameManager; }
-        set { _gameManager = value; }
+        get { return _isGameOver; }
     }
-  
     public float GameTime
     {
         get
@@ -43,6 +44,10 @@ public class GameController : MonoBehaviour {
         {
             return this._batteryDischargeRate;
         }
+        set
+        {
+            this._batteryDischargeRate = value;
+        }
     }
     public float BatteryCharge
     {
@@ -53,19 +58,20 @@ public class GameController : MonoBehaviour {
         set
         {
             this._batteryCharge = value;
-            if (_batteryCharge <= 0f)
+            if (_batteryCharge <= 0.00f)
             {
-                GameManager.IsGameLost  = true;                
+                _isGameOver = true;
+                StartCoroutine(GameOver());
             }
         }
     }
 
     // Use this for initialization
     void Start () {
-        _gameManager = GameManager.Instance;        
+        SoundManager.StartBackground(SoundManager.BgSound.GamePlay);
         _gameTime = 0;
         _batteryCharge = 100f;
-        _gameDifficulty(_gameManager.Difficulty);
+        _gameDifficulty(GameManager.Instance.Difficulty);
 
         //lock cursor to screen
         Cursor.lockState = CursorLockMode.Locked;
@@ -73,28 +79,32 @@ public class GameController : MonoBehaviour {
         _spawnSpooks();
         _spawnBatteries();
 
-        if (_gameManager.IsDebuging)
+        if (GameManager.Instance.IsDebuging)
         {
             //GameObject.Find("Directional Light").SetActive(true);
             Instantiate(TestPlayer, GameObject.FindGameObjectWithTag("Respawn").transform);
         }
         else
         {
-            Instantiate(Player, GameObject.FindGameObjectWithTag("Respawn").transform);
+            Instantiate(Player, 
+                GameObject.FindGameObjectWithTag("Respawn").transform.position,
+                Quaternion.Euler(0, 90, 0),
+                null
+                );
         }
     }
     
 	// Update is called once per frame
 	void Update () {
-        if (_gameManager.IsDebuging)
+        if (GameManager.Instance.IsDebuging)
             return;
         else
         {
-            if (!GameManager.IsGamePaused)
+            if (!GameManager.Instance.IsGamePaused && !_isGameOver)
             {
                 _gameTime += Time.deltaTime;
                 BatteryCharge -= _batteryDischargeRate;
-                _gameManager.Score = _calculateScore(GameTime, Spooks.Count, Batteries.Count);
+                GameManager.Instance.Score = _calculateScore(GameTime, Batteries.Count);
             }
         }
     }
@@ -131,7 +141,7 @@ public class GameController : MonoBehaviour {
                 _batteryDischargeRate = 0.04f;
                 break;
             case GameManager.DifficultyLevel.Hard:
-                _batteryDischargeRate = 0.8f;
+                _batteryDischargeRate = 0.04f;
                 break;
             default:
                 _batteryDischargeRate = 0.02f;
@@ -145,17 +155,25 @@ public class GameController : MonoBehaviour {
     /// <param name="SpooksLeft">Spooks Left In Game</param>
     /// <param name="BatteriesLeft">How many batties they used</param>
     /// <returns></returns>
-    private float _calculateScore(float _time,int SpooksLeft, int BatteriesLeft)
+    private float _calculateScore(float time, int batteriesLeft)
     {
         float score = 0;
-        float timeFactor = 100 / _time;
-        float enemiesFactor = 100 / (SpooksLeft + 1);
-        float batteriesFactor = 100 / (BatteriesLeft + 1);
+        float timeFactor = 100 / time;
+        float batteriesFactor = 100 / (batteriesLeft + 1);
 
-        score = timeFactor + enemiesFactor + batteriesFactor;
+        score = timeFactor + batteriesFactor;
+        score = Mathf.Clamp(score, 0, 100); // To ensure score stays between 0 and 100
+        score = Mathf.Round(score * 100f) / 100f; // To round off the score to 2 decimal places
 
-        return score;
+        string formattedScore = string.Format("{0:0.00}", score);
+        return float.Parse(formattedScore);
+    }
 
+    private IEnumerator GameOver()
+    {
+        SoundManager.PlaySound(SoundManager.SoundFX.LightLightGoesOut);
+        yield return new WaitForSeconds(3f);
+        GameManager.Instance.IsGameLost = true;
     }
 
 }

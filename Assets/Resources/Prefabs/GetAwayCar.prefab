@@ -208,6 +208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4226659228359846500}
   - component: {fileID: 7209769268012498965}
+  - component: {fileID: 5145202715000789054}
   m_Layer: 0
   m_Name: GetAwayCar
   m_TagString: Car
@@ -250,6 +251,19 @@ MonoBehaviour:
   _Instructions: {fileID: 0}
   BloomMaterial: {fileID: 2100000, guid: 13e47c3867840dd47a70d403fbd8c401, type: 2}
   isMouseOver: 0
+--- !u!65 &5145202715000789054
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4226659228359882308}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.4647226, y: 1.635253, z: 2.9176178}
+  m_Center: {x: -0.18923855, y: 0.8915901, z: -0.07892609}
 --- !u!1 &4226659228359882310
 GameObject:
   m_ObjectHideFlags: 0

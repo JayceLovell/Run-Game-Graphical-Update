@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class PlayerWon : MonoBehaviour {
 
@@ -12,7 +13,6 @@ public class PlayerWon : MonoBehaviour {
     [SerializeField]
     private bool isMouseOver;
 
-    private GameController _gameController;
 
     private readonly float startThreshold = 0.8f;
     private readonly float endThreshold = 0.5f;
@@ -20,11 +20,10 @@ public class PlayerWon : MonoBehaviour {
     private readonly float duration = 0.5f;
     private float timer = 0f;
 
-
     void Start()
     {
-        _gameController=GameObject.Find("GameController").GetComponent<GameController>();
-        _Instructions = GameObject.Find("Game Won Instructions");       
+        _Instructions = GameObject.Find("Game Won Instructions");
+        _Instructions.SetActive(false);
     }
     void OnMouseOver()
     {
@@ -38,10 +37,11 @@ public class PlayerWon : MonoBehaviour {
     }
     void OnMouseDown()
     {
-        _gameController.GameManager.IsGameWon = true;
+        GameManager.Instance.IsGameWon = true;
     }
     void Update()
     {
+
         if (isMouseOver)
         {
             timer += Time.deltaTime;
@@ -53,5 +53,10 @@ public class PlayerWon : MonoBehaviour {
                 BloomMaterial.SetFloat("_BloomThreshold", threshold);
             }
         }
+    }
+    public void GetInCar()
+    {
+        if(_Instructions.activeInHierarchy)
+            GameManager.Instance.IsGameWon = true;
     }
 }

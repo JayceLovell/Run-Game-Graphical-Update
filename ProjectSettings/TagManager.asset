@@ -13,6 +13,9 @@ TagManager:
   - Spook
   - EnemyPosition
   - FlashLight
+  - MazePiece
+  - Floor
+  - MiniMapRender
   layers:
   - Default
   - TransparentFX
@@ -28,7 +31,7 @@ TagManager:
   - Maze
   - Location
   - Post Processing
-  - 
+  - BreadCrumb
   - 
   - 
   - 

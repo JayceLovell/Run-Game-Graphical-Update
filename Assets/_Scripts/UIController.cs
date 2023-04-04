@@ -4,34 +4,62 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    private GameManager _gameManager;
     private GameController _controller;
     [SerializeField]
     private TextMeshProUGUI _timer;
-    [Header("Header")]
     [SerializeField]
-    private GameObject _pauseTitle;
+    private GameObject _PauseTitle;
     [SerializeField]
-    private GameObject _resumeButton;
+    private GameObject _PauseMenu;
     [SerializeField]
-    private GameObject _backToMainMenu;
+    private Slider BackgroundSlider;
+    [SerializeField]
+    private Slider SoundEffectSlider;
+
+    [SerializeField]
+    public float BGVolume
+    {
+        get
+        {
+            return GameManager.Instance.BGMVolume;
+        }
+        set
+        {
+            GameManager.Instance.BGMVolume = value;
+        }
+    }
+    [SerializeField]
+    public float FXVolume
+    {
+        get
+        {
+            return GameManager.Instance.SFXVolume;
+        }
+        set
+        {
+            GameManager.Instance.SFXVolume = value;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        _gameManager = GameManager.Instance; 
         _controller = GameObject.Find("GameController").GetComponent<GameController>();
+        BackgroundSlider.value = BGVolume;
+        SoundEffectSlider.value = FXVolume;
+        StartCoroutine(LateStart());       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!_gameManager.IsGamePaused)
+        if (!GameManager.Instance.IsGamePaused)
         {
-            if (_pauseTitle.activeInHierarchy)
+            if (_PauseMenu.activeInHierarchy)
             {
                 PauseMenu(false);
             }
@@ -43,7 +71,7 @@ public class UIController : MonoBehaviour
         }
         else
         {
-            if (!_pauseTitle.activeInHierarchy)
+            if (!_PauseMenu.activeInHierarchy)
             {
                 PauseMenu(true);
             }
@@ -51,17 +79,26 @@ public class UIController : MonoBehaviour
     }
     private void PauseMenu(bool visible)
     {
-        Debug.Log("PauseMenu " + visible);
-        _pauseTitle.SetActive(visible);
-        _resumeButton.SetActive(visible);
-        _backToMainMenu.SetActive(visible);
+        _PauseTitle.SetActive(visible);
+        _PauseMenu.SetActive(visible);
     }
     public void ResumeButton()
     {
         GameManager.Instance.IsGamePaused = false;
+        //lock cursor to screen
+        Cursor.lockState = CursorLockMode.Locked;
     }
     public void BackToMenuButton()
     {
+        //unlock cursor to screen
+        Cursor.lockState = CursorLockMode.Confined;
+        GameManager.Instance.IsGamePaused=false;
         SceneManager.LoadScene("Title");
     }
+    IEnumerator LateStart()
+    {
+        yield return new WaitForSeconds(1.0f); // Wait for 1 second
+        this.GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().MainCamera;
+    }
+
 }

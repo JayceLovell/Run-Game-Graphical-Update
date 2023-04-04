@@ -14,7 +14,11 @@ Shader "Custom/ToonRamp"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile_fog
             #include "UnityCG.cginc"
+            #include "UnityLightingCommon.cginc"
+            #include "Lighting.cginc"
+            #include "AutoLight.cginc"
 
             struct appdata {
                 float4 vertex : POSITION;
@@ -23,7 +27,10 @@ Shader "Custom/ToonRamp"
 
             struct v2f {
                 float2 uv : TEXCOORD0;
+                UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
+                fixed4 diff : COLOR0;
+                SHADOW_COORDS(1)
             };
 
             v2f vert(appdata v) {

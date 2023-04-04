@@ -16,7 +16,7 @@ public class BatteryEnergyUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_gameController.GameManager.IsGamePaused && !_gameController.GameManager.IsDebuging)
+        if (!GameManager.Instance.IsGamePaused && !GameManager.Instance.IsDebuging)
         {
             if(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().IsFlashLightOn)
                 GetComponent<Image>().fillAmount = _gameController.BatteryCharge/100;
