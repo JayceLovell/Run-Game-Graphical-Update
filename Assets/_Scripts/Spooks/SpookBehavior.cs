@@ -167,7 +167,7 @@ public class SpookBehavior : MonoBehaviour
         {
             SoundManager.PlaySound(SoundManager.SoundFX.EvilLaugh);
             isChasing = false;
-            other.transform.position = GameObject.FindGameObjectWithTag("Respawn").transform.position;
+            StartCoroutine(other.GetComponent<PlayerController>().SentBack());            
             navMeshAgent.SetDestination(home);
         }
     }
@@ -182,14 +182,7 @@ public class SpookBehavior : MonoBehaviour
             isChasing = false;
             navMeshAgent.SetDestination(home);
             isFleeing = true;
-        }
-        else if (other.tag == "Player")
-        {
-            SoundManager.PlaySound(SoundManager.SoundFX.EvilLaugh);
-            isChasing = false;
-            other.transform.position = GameObject.FindGameObjectWithTag("Respawn").transform.position;
-            navMeshAgent.SetDestination(home);
-        }
+        }        
     }
     /// <summary>
     /// make sure it flees
@@ -202,14 +195,7 @@ public class SpookBehavior : MonoBehaviour
             isChasing = false;
             navMeshAgent.SetDestination(home);
             isFleeing = true;
-        }
-        else if (other.tag == "Player")
-        {
-            SoundManager.PlaySound(SoundManager.SoundFX.EvilLaugh);
-            isChasing = false;
-            other.transform.position = GameObject.FindGameObjectWithTag("Respawn").transform.position;
-            navMeshAgent.SetDestination(home);
-        }
+        }        
     }
 
     private void Patrol()

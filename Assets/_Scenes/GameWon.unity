@@ -932,15 +932,20 @@ MonoBehaviour:
     type: 3}
   m_PointAction: {fileID: -2276567068317633372, guid: 768ab158586fe84449128fbbb02349fc,
     type: 3}
-  m_MoveAction: {fileID: 0}
+  m_MoveAction: {fileID: 3710738434707379630, guid: 768ab158586fe84449128fbbb02349fc,
+    type: 3}
   m_SubmitAction: {fileID: -6050807474234600583, guid: 768ab158586fe84449128fbbb02349fc,
     type: 3}
-  m_CancelAction: {fileID: 0}
+  m_CancelAction: {fileID: -7989270699665875314, guid: 768ab158586fe84449128fbbb02349fc,
+    type: 3}
   m_LeftClickAction: {fileID: 2743598977634469860, guid: 768ab158586fe84449128fbbb02349fc,
     type: 3}
-  m_MiddleClickAction: {fileID: 0}
-  m_RightClickAction: {fileID: 0}
-  m_ScrollWheelAction: {fileID: 0}
+  m_MiddleClickAction: {fileID: 2416325697772377110, guid: 768ab158586fe84449128fbbb02349fc,
+    type: 3}
+  m_RightClickAction: {fileID: 3183404510544221900, guid: 768ab158586fe84449128fbbb02349fc,
+    type: 3}
+  m_ScrollWheelAction: {fileID: -3564946472815879947, guid: 768ab158586fe84449128fbbb02349fc,
+    type: 3}
   m_TrackedDevicePositionAction: {fileID: 0}
   m_TrackedDeviceOrientationAction: {fileID: 0}
   m_DeselectOnBackgroundClick: 1

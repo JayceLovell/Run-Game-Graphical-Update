@@ -15,6 +15,7 @@ TagManager:
   - FlashLight
   - MazePiece
   - Floor
+  - MiniMapRender
   layers:
   - Default
   - TransparentFX

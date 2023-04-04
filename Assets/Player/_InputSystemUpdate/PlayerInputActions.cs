@@ -107,6 +107,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""ebf342c2-c21c-44bc-b82c-cd223154da5f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -338,6 +347,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Peek"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7a17b9c-1c6c-4caa-a46e-a2ced3263fc9"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -833,6 +853,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_SwitchLut = m_Player.FindAction("SwitchLut", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Peek = m_Player.FindAction("Peek", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
@@ -911,6 +932,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SwitchLut;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Peek;
+    private readonly InputAction m_Player_Interact;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -924,6 +946,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @SwitchLut => m_Wrapper.m_Player_SwitchLut;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Peek => m_Wrapper.m_Player_Peek;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -960,6 +983,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Peek.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPeek;
                 @Peek.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPeek;
                 @Peek.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPeek;
+                @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -991,6 +1017,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Peek.started += instance.OnPeek;
                 @Peek.performed += instance.OnPeek;
                 @Peek.canceled += instance.OnPeek;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -1095,6 +1124,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnSwitchLut(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnPeek(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -40,6 +40,8 @@ public class MainMenuScript : MonoBehaviour {
         }
 
         PreviousRunnerPlaceholder.text = GameManager.Instance.UserName;
+
+        Cursor.visible = true;
     }
 	
 	// Update is called once per frame

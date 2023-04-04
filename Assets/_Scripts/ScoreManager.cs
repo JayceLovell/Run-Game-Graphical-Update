@@ -20,10 +20,21 @@ public class ScoreManager
     public void SaveScores()
     {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.dataPath + "/" + _fileName);
+
+        // Create the directory if it doesn't exist
+        string directoryPath = Application.dataPath + "/Scores/";
+        if (!Directory.Exists(directoryPath))
+        {
+            Directory.CreateDirectory(directoryPath);
+        }
+
+        // Save the scores data to a file in the directory
+        string filePath = directoryPath + _fileName;
+        FileStream file = File.Create(filePath);
         bf.Serialize(file, playerScores);
         file.Close();
     }
+
 
     public void LoadScores()
     {
@@ -38,7 +49,7 @@ public class ScoreManager
         {
             playerScores.Add(new PlayerScore("Jayce", Random.Range(1000f, 1000000f)));
             playerScores.Add(new PlayerScore("Jelani", Random.Range(1000f, 1000000f)));
-            playerScores.Add(new PlayerScore("Adrian", Random.Range(1000f, 1000000f)));
+            playerScores.Add(new PlayerScore("Adrian (MIA)", Random.Range(1000f, 1000000f)));
 
             SaveScores();
         }

@@ -51,6 +51,7 @@ public class UIController : MonoBehaviour
         _controller = GameObject.Find("GameController").GetComponent<GameController>();
         BackgroundSlider.value = BGVolume;
         SoundEffectSlider.value = FXVolume;
+        StartCoroutine(LateStart());       
     }
 
     // Update is called once per frame
@@ -94,4 +95,10 @@ public class UIController : MonoBehaviour
         GameManager.Instance.IsGamePaused=false;
         SceneManager.LoadScene("Title");
     }
+    IEnumerator LateStart()
+    {
+        yield return new WaitForSeconds(1.0f); // Wait for 1 second
+        this.GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().MainCamera;
+    }
+
 }

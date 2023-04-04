@@ -173,7 +173,6 @@ public class GameManager : MonoBehaviour {
         // Check if the player has returned to the title scene
         if (scene.name == "Title")
         {
-            Debug.Log("Resetting");
             IsGameLost = false;
             IsGamePaused = false;
             IsGameWon = false;

@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        MiniMap = GameObject.FindGameObjectWithTag("MiniMapRender").GetComponent<RawImage>();
         inputAction = new PlayerInputActions();
 
         //using controller from Player InputController
@@ -107,6 +108,8 @@ public class PlayerController : MonoBehaviour
 
         inputAction.Player.SwitchLut.performed += cntxt => SwitchLut();
 
+        inputAction.Player.Interact.performed += cntxt => Interact();
+
         rb = GetComponent<Rigidbody>();
 
         distanceToGround = GetComponent<Collider>().bounds.extents.y;
@@ -125,6 +128,12 @@ public class PlayerController : MonoBehaviour
 
         Window.SetActive(false);
 
+
+    }
+
+    private void Interact()
+    {
+        GameObject.Find("GetAwayCar").GetComponent<PlayerWon>().GetInCar();
     }
 
     private void FlashLightToggle()
@@ -293,5 +302,18 @@ public class PlayerController : MonoBehaviour
             SpotLight.intensity = 4;
         }
             lightFlickerStarted = false;
+    }
+    /// <summary>
+    /// Blur Camera
+    /// </summary>
+    /// <returns></returns>
+    [ContextMenu("Respawn")]
+    public IEnumerator SentBack()
+    {
+        playerCamera.GetComponent<Blur>().integerRange = 64;
+        yield return new WaitForSeconds(1f);
+        this.transform.position = GameObject.FindGameObjectWithTag("Respawn").transform.position;
+        yield return new WaitForSeconds(1f);
+        playerCamera.GetComponent<Blur>().integerRange = 1;
     }
 }

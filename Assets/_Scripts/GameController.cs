@@ -104,7 +104,7 @@ public class GameController : MonoBehaviour {
             {
                 _gameTime += Time.deltaTime;
                 BatteryCharge -= _batteryDischargeRate;
-                GameManager.Instance.Score = _calculateScore(GameTime, Spooks.Count, Batteries.Count);
+                GameManager.Instance.Score = _calculateScore(GameTime, Batteries.Count);
             }
         }
     }
@@ -155,18 +155,20 @@ public class GameController : MonoBehaviour {
     /// <param name="SpooksLeft">Spooks Left In Game</param>
     /// <param name="BatteriesLeft">How many batties they used</param>
     /// <returns></returns>
-    private float _calculateScore(float _time,int SpooksLeft, int BatteriesLeft)
+    private float _calculateScore(float time, int batteriesLeft)
     {
         float score = 0;
-        float timeFactor = 100 / _time;
-        float enemiesFactor = 100 / (SpooksLeft + 1);
-        float batteriesFactor = 100 / (BatteriesLeft + 1);
+        float timeFactor = 100 / time;
+        float batteriesFactor = 100 / (batteriesLeft + 1);
 
-        score = timeFactor + enemiesFactor + batteriesFactor;
+        score = timeFactor + batteriesFactor;
+        score = Mathf.Clamp(score, 0, 100); // To ensure score stays between 0 and 100
+        score = Mathf.Round(score * 100f) / 100f; // To round off the score to 2 decimal places
 
-        return score;
-
+        string formattedScore = string.Format("{0:0.00}", score);
+        return float.Parse(formattedScore);
     }
+
     private IEnumerator GameOver()
     {
         SoundManager.PlaySound(SoundManager.SoundFX.LightLightGoesOut);
