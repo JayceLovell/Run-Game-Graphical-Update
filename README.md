@@ -94,7 +94,7 @@ https://user-images.githubusercontent.com/35810049/221449062-9a721bda-f358-4d89-
   <details><summary>DETAILS HERE</summary>
  
 ### Project Build:
- 
+ https://github.com/JayceLovell/Run-Game-Graphical-Update/releases/tag/v1.0.0
 ### Presentaion Slides:
 
 ### Game Demo Video: 
