@@ -101,7 +101,7 @@ https://user-images.githubusercontent.com/35810049/221449062-9a721bda-f358-4d89-
 ### Game Demo Video: 
 https://www.youtube.com/watch?v=aYY3ExYlNtU&ab_channel=JayceLovell
  
-### Team Contributions:
+### Team Contribution Report:
  
 ### Final Updates
 #### Basic Texturing
